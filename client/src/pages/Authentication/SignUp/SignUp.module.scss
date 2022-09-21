@@ -1,0 +1,60 @@
+.SignUp-text {
+  color: var(--green-dark) !important;
+}
+
+.form-input {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 8px;
+  border: 1px solid var(--green-dark);
+  border-radius: 20px;
+  height: 48px;
+}
+
+.form-via-or {
+  display: flex;
+  align-items: center;
+  margin-bottom: 28px;
+}
+
+.form-via-dash {
+  height: 1px;
+  width: 100%;
+  background-color: #dbdbdb;
+  flex: 1;
+}
+
+.form-via-text {
+  color: #ccc;
+  padding: 0 1rem;
+  text-transform: uppercase;
+  font-size: 1rem;
+}
+
+.SignInButton_wrapper {
+  position: relative;
+  background-color: #fff;
+  border: 1px solid var(--green-dark);
+  border-radius: 44px;
+  height: 48px;
+  padding-left: 16px;
+  text-align: center;
+  margin-bottom: 12px;
+  cursor: pointer;
+
+  img {
+    width: fit-content;
+    height: fit-content;
+  }
+}
+
+.SignInButton_icon {
+  position: absolute;
+  left: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.SignInButton_title {
+  line-height: 44px;
+}

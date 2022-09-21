@@ -1,0 +1,26 @@
+.wrapper {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.big-img {
+  width: 50%;
+  height: 100%;
+  img{
+    cursor: default;
+  }
+}
+
+.gird-img {
+  width: 48%;
+  overflow: hidden;
+  overflow-y: auto;
+  display: grid;
+  grid-template-columns: 31% 31% 31%;
+  grid-auto-rows: 35%;
+  gap: 16px;
+  align-content: start;
+  justify-content: start;
+}
