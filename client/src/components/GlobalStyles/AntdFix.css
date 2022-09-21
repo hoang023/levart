@@ -1,0 +1,164 @@
+/* Global */
+p {
+  margin: 0;
+}
+/* Global */
+
+/* Input */
+
+.ant-input,
+/* Input.Password */
+.ant-input-affix-wrapper,
+/* Date Picker */
+.ant-picker {
+  /* font-size:  16px; */
+  border-radius: 20px;
+  padding: 6px 9px;
+}
+
+.ant-input-affix-wrapper .ant-input {
+  border-radius: 0px;
+}
+
+/* Select */
+.ant-select:not(.ant-select-customize-input) .ant-select-selector {
+  border-radius: 20px;
+}
+
+.ant-select-single:not(.ant-select-customize-input) .ant-select-selector {
+  height: 36px;
+  padding: 2px 11px;
+}
+
+.ant-input:hover,
+.ant-input-focused,
+.ant-input:focus,
+/* Input.Password */
+.ant-input-affix-wrapper-focused,
+.ant-input-affix-wrapper:focus,
+.ant-input-affix-wrapper:not(.ant-input-affix-wrapper-disabled):hover,
+/* Date Picker */
+.ant-picker-focused,
+.ant-picker:hover,
+/* Select */
+.ant-select:not(.ant-select-disabled):hover .ant-select-selector,
+.ant-select-focused:not(.ant-select-disabled).ant-select:not(.ant-select-customize-input) .ant-select-selector {
+  border-color: var(--green-light);
+}
+
+.ant-input-focused,
+.ant-input:focus,
+/* Input.Password */
+.ant-input-affix-wrapper-focused,
+.ant-input-affix-wrapper:focus,
+/* Date Picker */
+.ant-picker-focused,
+/* Select */
+.ant-select-focused:not(.ant-select-disabled).ant-select:not(.ant-select-customize-input) .ant-select-selector {
+  box-shadow: 0 0 0 2px rgba(24, 255, 113, 0.2);
+}
+
+.ant-form-item {
+  margin: 0 0 10px;
+}
+
+/* Input */
+
+/* Banner Css */
+.ant-carousel .slick-prev,
+.ant-carousel .slick-next,
+.ant-carousel .slick-prev:hover,
+.ant-carousel .slick-next:hover {
+  font-size: inherit !important;
+  color: currentColor !important;
+}
+
+.ant-carousel .slick-prev {
+  /* left: 10px !important; */
+  z-index: 2 !important;
+  color: #000 !important;
+}
+
+.ant-carousel .slick-next {
+  /* right: 10px !important;  */
+  z-index: 2 !important;
+  color: #000 !important;
+}
+
+body .slick-prev::before,
+body .slick-next::before {
+  display: none;
+}
+/* Banner Css */
+
+/* Start Rate CSS */
+.ant-rate-star-second {
+  color: #b9bfcd;
+}
+
+.ant-rate {
+  color: var(--green-light);
+}
+
+.ant-rate-star:not(:last-child) {
+  margin-right: 2px;
+}
+/* Start Rate CSS */
+
+/* Modal CSS */
+.ant-modal-body {
+  height: 500px;
+  border-top: 1px solid #f0f0f0;
+  /* overflow: hidden;
+  overflow-y: auto; */
+}
+
+.ant-modal-header {
+  border-bottom: none;
+}
+
+/* Modal CSS */
+
+/* CheckBox CSS */
+.ant-checkbox-wrapper {
+  font-size: 1.6rem;
+}
+
+.ant-checkbox-group-item {
+  margin-right: 0;
+  margin-top: 4px;
+}
+
+.ant-checkbox-inner {
+  border: 1px solid #000;
+}
+/* CheckBox CSS */
+
+/* Slider CSS */
+.ant-slider-handle {
+  border: 2px solid #91d5ff !important;
+}
+
+.ant-slider-rail {
+  background-color: #ccc;
+}
+
+/* Slider CSS */
+
+/* Sekeleton */
+.ant-skeleton-header,
+.ant-skeleton-content {
+  vertical-align: middle;
+}
+
+.ant-skeleton-with-avatar
+  .ant-skeleton-content
+  .ant-skeleton-title
+  + .ant-skeleton-paragraph {
+  margin-top: 0;
+}
+
+.ant-skeleton-content .ant-skeleton-title {
+  width: 70px;
+}
+/* Sekeleton */

@@ -1,0 +1,57 @@
+@import "normalize.css";
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  //color
+  --green-dark: #4ca101;
+  --green-light: #0ac922;
+  --green-mindaro: #a7e000;
+  --card-background: #EBEBEB;
+  
+  //size
+  --default-layout-width: calc(1120 / 1280 * 100%);
+  --padding-layout: calc(80 / 1280 * 100%);
+}
+
+html {
+  font-size: 62.5%;
+}
+
+body {
+  font-size: 1.6rem;
+  line-height: 1.5;
+  text-rendering: optimizeSpeed;
+}
+
+button,
+input,
+[tabindex] {
+    outline: none;
+    border: none;
+}
+
+a[href] {
+  color: var(--text-color);
+  text-decoration: none;
+}
+
+h4 {
+  font-weight: 700;
+  font-size: 1.8rem;
+}
+
+h2{
+  font-size: 2.8rem;
+}
+
+img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  cursor: pointer;
+}

@@ -1,0 +1,33 @@
+.wrapper {
+  margin-top: 48px;
+  h2 {
+    margin-bottom: 18px;
+  }
+}
+
+.slider {
+  margin-top: 18px;
+  h2 {
+    margin-bottom: 12px;
+    color: #fff;
+  }
+}
+
+.prevArrow-btn,
+.nextArrow-btn {
+  position: absolute;
+}
+
+.prevArrow-btn {
+  top: 30%;
+  left: 20%;
+  transform: translateY(-50%);
+}
+
+.nextArrow-btn {
+  top: 30%;
+  right: 20%;
+  transform: translateY(-50%);
+}
+
+

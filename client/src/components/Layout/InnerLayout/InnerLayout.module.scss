@@ -1,0 +1,12 @@
+.wrapper,
+.container{
+  display: flex;
+  flex-direction: column;
+  
+}
+
+.container{
+  width: 100%;
+  align-items: center;
+  margin-top: 60px;
+}
