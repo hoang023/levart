@@ -126,9 +126,9 @@ const schema = new mongoose.Schema(
       type: Schema.Types.ObjectId,
       ref: "Place",
     },
-    provinceID: {
+    supplierID: {
       type: Schema.Types.ObjectId,
-      ref: "Province",
+      ref: "Supplier"
     },
     path: {
       type: String,
