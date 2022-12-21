@@ -2,7 +2,6 @@ import { PlaceModel } from "../models/PlaceModel.js";
 
 export const getPlaces = async (req, res) => {
   try {
-
     await PlaceModel.find()
       .populate({
         path: "provinceID",

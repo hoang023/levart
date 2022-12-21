@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useContext } from "react";
+import React, { useEffect, useState, useContext, Fragment } from "react";
 import { useSelector } from "react-redux";
 import styles from "./NavBar.module.scss";
 import classNames from "classnames/bind";
@@ -6,7 +6,7 @@ import Button from "@/components/General/Button/Button";
 import { AuthContext } from "@/contexts/AuthContext";
 import { profilesState$ } from "@/redux/selectors";
 import { Form, Skeleton, Spin } from "antd";
-import { AiOutlineHeart, AiFillHeart } from "react-icons/ai";
+import { AiOutlineHeart, AiFillHeart, AiOutlineBell, AiOutlineTable, AiOutlineHdd } from "react-icons/ai";
 
 const cx = classNames.bind(styles);
 
@@ -18,6 +18,14 @@ function NavBar() {
 
   let body;
   const logout = () => logoutUser();
+  const [manage, setManage] = useState(false);
+
+  let manageState = manage;
+
+  const handleManage = () => {
+    setManage(!manageState);
+    console.log("nowstate", manage)
+  }
 
   if (authLoading) {
     body = (
@@ -32,15 +40,39 @@ function NavBar() {
     );
   } else if (isAuthenticated) {
     body = (
-      <div className={cx("Auth")} onClick={logout}>
-        <img
-          className={cx("image")}
-          src={profile && profile.avatar}
-          alt="asd"
-        />
-        <p className={cx("name")}>
-          {profile !== null ? profile.lastName + " " + profile.firstName : ""}
-        </p>
+      <div className={cx("wrapper")}>
+        {/* {user.role === "Admin" || "Supplier" ? <div> */}
+        {user.role !== "User" ? <Fragment>
+
+          <Button textWithIcon to={"/Admin"} onClick= { () => handleManage(manage)}>
+            <span className={cx("icon-trips")}>
+              <AiOutlineHdd className={cx("btn-icon")} />
+              <p>Manage</p>
+            </span>
+          </Button>
+          {manage === true ? <Button text >
+            <span className={cx("icon-trips")}>
+              <AiOutlineBell className={cx("btn-icon")} />
+              <p>Notifications</p>
+            </span>
+          </Button> : null}
+          
+        </Fragment> : <Button text>
+          <span className={cx("icon-trips")}>
+            <AiOutlineBell className={cx("btn-icon")} />
+            <p>Trips</p>
+          </span>
+        </Button>}
+        <div className={cx("Auth")} onClick={logout}>
+          <img
+            className={cx("image")}
+            src={profile && profile.avatar}
+            alt="asd"
+          />
+          <p className={cx("name")}>
+            {profile !== null ? profile.lastName + " " + profile.firstName : ""}
+          </p>
+        </div>
       </div>
     );
   } else {
@@ -59,12 +91,12 @@ function NavBar() {
 
   return (
     <div className={cx("wrapper")}>
-      <Button text>
+      {/* <Button text>
         <span className={cx("icon-trips")}>
           <AiOutlineHeart className={cx("btn-icon")} />
           <p>Trips</p>
         </span>
-      </Button>
+      </Button> */}
       {body}
     </div>
   );

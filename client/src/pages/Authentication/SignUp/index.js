@@ -99,6 +99,7 @@ function SignUp() {
 
         <Form.Item style={{ marginBottom: "0px" }}>
           <Form.Item
+          className={cx("form-date-of-birth")}
             name="Date of birth"
             label="Date of birth"
             rules={[
