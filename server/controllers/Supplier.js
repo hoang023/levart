@@ -7,8 +7,34 @@ export const getSupplier = async(req,res) => {
         //     email:"abc@gmail.com",
         // })
         // supplier.save()
-
+        await SupplierModel.find()
+        .populate({
+            path: "UserID"
+        })
+        .exec()
+        .then((requests)=>{
+            res.status(200).json(requests)
+        })
     }catch(err) {
         res.status(500).json({ error: err });
     }
+}
+export const createSupplier =  async(req,res) => {
+    try{
+        const dataSupplier = req.body
+        const supplier = new SupplierModel(dataSupplier)
+        await supplier.save().then((supplier)=>{
+            SupplierModel.findById(supplier._id)
+            .populate({
+                path: "UserID"
+            })
+            .exec()
+            .then((supplier)=>{
+                res.status(200).json(supplier)
+            })
+        })
+    }catch(err) {
+        res.status(500).json({ error: err });
+    }
+
 }

@@ -1,10 +1,10 @@
 import express from "express";
-import { getPlaces } from "../controllers/Place.js";
+import { getPlaces,createPlace } from "../controllers/Place.js";
 
 const router = express.Router();
 //http://localhost:5000/posts
 
 router.get("/", getPlaces);
-// router.post("/", createPlaces);
+ router.post("/create-place", createPlace);
 
 export default router;

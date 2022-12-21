@@ -14,6 +14,10 @@ const schema = new mongoose.Schema (
     type:String,
     required: true,
   },
+  UserID : {
+    type: Schema.Types.ObjectId,
+    ref: "User"
+  }
 }
 )
 export const SupplierModel = mongoose.model("Supplier", schema);
