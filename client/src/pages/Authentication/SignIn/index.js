@@ -84,7 +84,7 @@ function SignIn() {
           Forgot password?
         </Form.Item>
         <Form.Item>
-          <Button primary>Sign in</Button>
+          <Button primary>Sign In</Button>
         </Form.Item>
 
         <Form.Item

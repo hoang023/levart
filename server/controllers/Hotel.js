@@ -2,37 +2,36 @@ import { HotelModel } from "../models/HotelModel.js";
 
 export const getHotels = async (req, res) => {
   try {
-  //   const post = new HotelModel(
-  //   {
-  //   name: "Holiday Inn Resort Ho Tram Beach",
-  //   location:"The Grand Ho Tram Strip Phuoc Thuan, Xuyen Moc, Ba Ria, Vung Tau 790000 Vietnam",
-  //   description:"Revel in the joy of travel at the Holiday Inn Resort Ho Tram Beach. With 502 stylishly appointed rooms and suites inside The Grand Ho Tram Strip complex, this inviting tower features panoramic sea-views and artistic hues of marine decor. The tower offerings include a gourmet food court and expansive entertainment options with specialty restaurants & bars. Bright, airy, fun, and young, the Holiday Inn Resort is the brand's first entry into Vietnam and to the emerging Ho Tram destination.",
-  //   phone: "0118 425 437",
-  //   price: 86,
-  //   start: 4,
-  //   image: [
-  //     "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/21/e7/57/59/holiday-inn-resort-ho.jpg?w=1200&h=-1&s=1",
-  //     "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/21/e7/54/92/holiday-inn-resort-ho.jpg?w=1200&h=-1&s=1",
-  //     "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/1d/3e/48/39/premium-suite-two-bedroom.jpg?w=1200&h=-1&s=1",
-  //   ],
-  //   website:
-  //     "https://www.ihg.com/holidayinnresorts/hotels/us/en/vung-tau/vtght/hoteldetail",
-  //   placeID: "639e6fc89d1b8a93a8e33c34",
-  //   supplierID: "639e8503ab7d2f35803c13ae",
-  //   evaluatePoint: 5,
-  // },);
+    // const post = new HotelModel(
+    // {
+    //   name: "Motel Quoc Viet",
+    //   location:
+    //     "Hùng Vương, Phước Hưng, Bà Rịa, Ba Ria - Vung Tau, Vietnam, Ba Ria, Vietnam",
+    //   description: "",
+    //   phone: "0118 425 437",
+    //   price: 12,
+    //   start: 0,
+    //   image: [
+    //     "https://cf.bstatic.com/xdata/images/hotel/max1024x768/282737717.jpg?k=915b93d36185eecf3eb910559b967a71366ff02da0fa0a97ad42923e7c3094a3&o=&hp=1",
+    //     "https://q-xx.bstatic.com/xdata/images/hotel/840x460/282680006.jpg?k=0401d80a02b556c9c4e033d023a4fd3577b6af36976421d7253aae1f67aa56ac&o=",
+    //     "https://cf.bstatic.com/xdata/images/hotel/max1024x768/282676223.jpg?k=f176f5b36933658f28403754cbc7937b18dd7257f328994e96d0601635c7d2e0&o=&hp=1",
+    //   ],
+    //   website:
+    //     "https://www.ihg.com/holidayinnresorts/hotels/us/en/vung-tau/vtght/hoteldetail",
+    //   placeID: "62835f98dc4dd1b7495ea898",
+    //   provinceID: "62834d22d587a5f7b2b82bac",
+    //   evaluatePoint: 3.5,
+    // }
+    // );
 
-  //   post.save();
+    // post.save();
 
     await HotelModel.find()
       .populate({
         path: "placeID",
-        populate: {
-          path: "provinceID"
-        }
       })
       .populate({
-        path: "supplierID",
+        path: "provinceID",
       })
       .exec()
       .then((hotels) => {
