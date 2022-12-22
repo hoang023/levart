@@ -4,10 +4,9 @@ import FoodAndDrink from '@/pages/FoodAndDrink';
 import Hotel from '@/pages/Hotel';
 import ProvinceAndPlace from '@/pages/ProvinceAndPlace';
 import Filter from '@/pages/Filter';
-import { AdminLayout, AuthenticationLayout, FilterLayout, InnerLayout } from '@/components/Layout';
+import { AuthenticationLayout, FilterLayout, InnerLayout } from '@/components/Layout';
 import SignIn from '@/pages/Authentication/SignIn';
 import SignUp from '@/pages/Authentication/SignUp';
-import Admin from '@/pages/Admin';
 
 //Public Routes
 const publishRoutes = [
@@ -25,11 +24,8 @@ const publishRoutes = [
     {path: "/Filter_Place_Hotel_:name", component: Filter, layout: FilterLayout },
     {path: "/Filter_Province_FoodAndDrink_:name", component: Filter, layout: FilterLayout },
     {path: "/Filter_Place_FoodAndDrink_:name", component: Filter, layout: FilterLayout },
-    // {path: "/Admin", component: Admin},
 ];
 
-const privateRoutes = [
-    {path: "/Admin", component: Admin, layout: AdminLayout},
-];
+const privateRoutes = [];
 
 export { publishRoutes, privateRoutes };

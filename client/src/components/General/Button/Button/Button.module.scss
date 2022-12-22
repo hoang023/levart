@@ -3,10 +3,9 @@
   font-size: 1.6rem;
   font-weight: 600;
   padding: 7px 16px;
-  border-radius: 44px;
+  border-radius: 20px;
   background-color: #fff;
   cursor: pointer;
-  height: 48px;
 
   + .wrapper {
     margin-left: 20px;
@@ -33,21 +32,8 @@
   &:hover {
     background-color: rgba(0, 0, 0, 0.07);
   }
-  // display: flex;
-  // justify-content: center;
-  // align-items: center;
 }
 
-.textWithIcon {
-  min-width: 0px;
-  padding: 7px 16px;
-  &:hover {
-    background-color: rgba(0, 0, 0, 0.07);
-  }
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
 //Button size
 .medium {
   min-width: 100px;

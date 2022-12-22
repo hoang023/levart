@@ -123,10 +123,12 @@ function* mySaga() {
   yield takeLatest(actions.getFoodAndDrinks.getFoodAndDrinksRequest, fetchFoodAndDrinkSaga);
 
   yield takeLatest(actions.getAttractions.getAttractionsRequest, fetchAttractionSaga);
-
+  
   yield takeLatest(actions.getMyTrips.getMyTripsRequest, fetchMyTripsSaga);
   yield takeLatest(actions.createCollections.createCollectionsRequest, fetchCreateCollectionsSaga);
   yield takeLatest(actions.createPlaceLists.createPlaceListsRequest, fetchCreatePlaceListsSaga);
+
+
 
 }
 

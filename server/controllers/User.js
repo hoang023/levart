@@ -6,12 +6,12 @@ import jwt from "jsonwebtoken";
 
 export const getUser = async (req, res) => {
   try {
-    //  const user = new UserModel({
-    //   email:"huy123@gmail.com",
+    // const user = new UserModel({
+    //   email:"b123@gmail.com",
     //   password:"123456",
-    //   role: "Supplier"
+    //   role: "Admin"
     // })
-    // user.save();
+    // user.save()
 
     const users = await UserModel.find();
 
@@ -119,12 +119,8 @@ export const createUsers = async (req, res) => {
       myTrip = new MyTripModel({ collections: [], UserID: user._id });
     });
 
-    await profile.save(() => {
-      console.log("đăng ký thành công")
-    });
-    await myTrip.save(() => {
-      console.log("Tạo mytrip thành công");
-    });
+    await profile.save();
+    await myTrip.save();
 
     const accessToken = jwt.sign({ userId: newUser._id }, "THL");
 

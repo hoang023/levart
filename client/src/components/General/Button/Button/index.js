@@ -8,7 +8,6 @@ const cx = classNames.bind(styles);
 function Button({
   to,
   href,
-  textWithIcon = false,
   primary = false,
   medium = false,
   text = false,
@@ -45,7 +44,6 @@ function Button({
     primary,
     medium,
     text,
-    textWithIcon,
     disabled,
   });
 
