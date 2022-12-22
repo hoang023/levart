@@ -46,4 +46,8 @@ export const INIT_STATE = {
     isLoading: false,
     data: null,
   },
+  Request:{
+    isLoading: false,
+    data: [],
+  }
 };

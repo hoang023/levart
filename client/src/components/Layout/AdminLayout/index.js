@@ -56,6 +56,9 @@ function AdminLayout({ children, backgroundColor = false, childrenOutSide }) {
         dispatch(actions.getFoodAndDrinks.getFoodAndDrinksRequest());
         dispatch(actions.getHotels.getHotelsRequest());
         dispatch(actions.getProfiles.getProfilesRequest());
+        dispatch(actions.getRequests.getRequestsRequest( () => {
+            console.log("đã lấy được yêu cầu")
+        }));
     }, [dispatch]);
 
     const classes = cx("wrapper", {

@@ -25,6 +25,7 @@ function DefaultLayout({ children, backgroundColor = false, childrenOutSide }) {
     dispatch(actions.getFoodAndDrinks.getFoodAndDrinksRequest());
     dispatch(actions.getHotels.getHotelsRequest());
     dispatch(actions.getProfiles.getProfilesRequest());
+    dispatch(actions.getRequests.getRequestsRequest());
   }, [dispatch]);
 
   const classes = cx("wrapper", {

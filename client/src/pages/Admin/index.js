@@ -2,7 +2,7 @@ import React, { Fragment, useContext } from "react";
 import classNames from "classnames/bind";
 import styles from "./AdminPage.module.scss";
 import { useDispatch, useSelector } from "react-redux";
-import { attractionsState$, provincesState$ } from "@/redux/selectors";
+import { attractionsState$, provincesState$, requestState$ } from "@/redux/selectors";
 import { Link, Navigate, Route, Router, useParams } from "react-router-dom";
 import { AuthContext } from "@/contexts/AuthContext";
 import { Skeleton, Space, Tag } from "antd";
@@ -14,6 +14,9 @@ import Column from "antd/lib/table/Column";
 const cx = classNames.bind(styles);
 
 function AdminPage() {
+
+const request = useSelector(requestState$);
+console.log("request", request);
   const {
     logoutUser,
     authState: { authLoading, isAuthenticated, user, profile },
