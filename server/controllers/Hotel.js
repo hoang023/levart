@@ -42,30 +42,7 @@ export const getHotels = async (req, res) => {
     res.status(500).json({ error: err });
   }
 };
-export const createHotel = async(req,res) => {
-  try {
-    const dataHotel = req.body
-    const hotel = new HotelModel(dataHotel)
-    await hotel.save().then((hotel)=>{
-      HotelModel.findById(hotel._id)
-      .populate({
-        path: "placeID",
-        populate: {
-          path: "provinceID"
-        }
-      })
-      .populate({
-        path: "supplierID",
-      })
-      .exec()
-      .then((hotel) => {
-        res.status(200).json(hotel)
-      });
-    })
-  }catch(err) {
-    res.status(500).json({ error: err });
-  }
-}
+
 // const post = new HotelModel(
 // {
 //   name: "Motel Quoc Viet",
