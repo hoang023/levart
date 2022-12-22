@@ -1,3 +1,4 @@
+import ExportTypography from "antd/lib/typography/Typography";
 import axios from "axios";
 
 const URL = "http://localhost:5000";
@@ -37,6 +38,8 @@ export const fetchHotel = () => axios.get(`${URL}/hotel`);
 export const fetchFoodAndDrink = () => axios.get(`${URL}/foodAndDrink`);
 
 export const fetchAttraction = () => axios.get(`${URL}/attraction`);
+
+export const fetchRequest = () => axios.get(`${URL}/request`);
 
 export const fetchMyTrip = (payload) => axios.get(`${URL}/myTrip/${payload}`);
 export const createCollections = (payload) => axios.patch(`${URL}/myTrip/${payload.UserID}`, payload);

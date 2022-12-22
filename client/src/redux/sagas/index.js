@@ -108,6 +108,16 @@ function* fetchCreatePlaceListsSaga(action) {
   }
 }
 
+function* fetchRequestsSaga(action) {
+  try {
+    const requests = yield call(api.fetchRequest);
+
+    yield put(actions.getRequests.getRequestsSuccess(requests.data));
+  } catch (error) {
+    yield put(actions.getRequests.getRequestsFailure(error));
+  }
+}
+
 
 function* mySaga() {
   yield takeLatest(actions.getPosts.getPostsRequest, fetchPostsSaga);
@@ -128,6 +138,8 @@ function* mySaga() {
   yield takeLatest(actions.createCollections.createCollectionsRequest, fetchCreateCollectionsSaga);
   yield takeLatest(actions.createPlaceLists.createPlaceListsRequest, fetchCreatePlaceListsSaga);
 
+  yield takeLatest(actions.getRequests.getRequestsRequest, fetchRequestsSaga);
+  
 }
 
 export default mySaga;

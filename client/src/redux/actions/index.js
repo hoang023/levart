@@ -76,10 +76,10 @@ export const createPlaceLists = createActions({
   createPlaceListsFailure: (err)=>err,
 })
 
-// export const getRequestRequest = createActions({
-//   getMyTripsRequest: (payload) => payload,
-//   getMyTripsSuccess: (payload) => payload,
-//   getMyTripsFailure: (err) => err,
-// });
+export const getRequests = createActions({
+  getRequestsRequest: (payload) => payload,
+  getRequestsSuccess: (payload) => payload,
+  getRequestsFailure: (err) => err,
+});
 
 
