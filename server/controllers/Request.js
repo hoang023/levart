@@ -75,5 +75,9 @@ export const createRequest = async (req,res) => {
   }catch(err) {
     res.status(500).json({ error: err });
   }
+<<<<<<< HEAD
 }
 //c
+=======
+}
+>>>>>>> parent of 54a6669 (Merge pull request #3 from hoang023/huyhoang)
