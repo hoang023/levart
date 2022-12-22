@@ -23,8 +23,7 @@ export const getAttractions = async (req, res) => {
     //     museum: true,
     //   },
     //   evaluatePoint: 5,
-    //   placeID: "62835f98dc4dd1b7495ea898",
-    //   provinceID: "62834d22d587a5f7b2b82bac",
+    //   placeID: "639e706c02e084443c9715f8",
     // }
     // );
 
@@ -33,9 +32,9 @@ export const getAttractions = async (req, res) => {
     await AttractionModel.find()
       .populate({
         path: "placeID",
-      })
-      .populate({
-        path: "provinceID",
+        populate: {
+          path: "provinceID"
+        }
       })
       .exec()
       .then((attractions) => {
@@ -45,6 +44,27 @@ export const getAttractions = async (req, res) => {
     res.status(500).json({ error: err });
   }
 };
+export const createAttraction = async(req,res) => {
+  try{
+    const dataAttraction = req.body
+    const attraction = new AttractionModel(dataAttraction)
+    await attraction.save().then((attraction)=>{
+      AttractionModel.findById(attraction._id)
+      .populate({
+        path: "placeID",
+        populate: {
+          path: "provinceID"
+        }
+      })
+      .exec()
+      .then((attraction) => {
+        res.status(200).json(attraction);
+      });
+    })
+  }catch(err) {
+    res.status(500).json({error:err})
+  }
+}
 
 //     const post = new AttractionModel(
 // {

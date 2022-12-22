@@ -14,6 +14,24 @@ export const getPlaces = async (req, res) => {
     res.status(500).json({ error: err });
   }
 };
+export const createPlace = async (req, res) => {
+  try{
+    const dataPlace = req.body
+    const place = new PlaceModel(dataPlace)
+    await place.save().then((place)=>{
+      PlaceModel.findById(place._id)
+      .populate({
+        path:"provinceID"
+      })
+      .exec()
+      .then((place)=>{
+        res.status(200).json(place)
+      })
+    })
+  } catch(err) {
+    res.status(500).json({ error: err });
+  }
+}
 
 // const province = new PlaceModel(
 //   //   {

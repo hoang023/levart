@@ -1,10 +1,10 @@
 import express from "express";
-import { getAttractions } from "../controllers/Attraction.js";
+import { getAttractions, createAttraction } from "../controllers/Attraction.js";
 
 const router = express.Router();
 //http://localhost:5000/posts
 
 router.get("/", getAttractions);
-// router.post("/", createPlaces);
+ router.post("/create-attraction", createAttraction);
 
 export default router;
