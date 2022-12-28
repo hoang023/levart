@@ -73,7 +73,7 @@ function Banner({ listBanner, type, title, slider, number = 4, className }) {
       >
         {title}
       </h2>
-      <CarouselCompo />
+      <CarouselCompo/>
     </div>
   );
 }

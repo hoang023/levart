@@ -1,4 +1,4 @@
-import { INIT_STATE } from "@/constant";
+import { INIT_STATE } from "../../constant";
 import { getRequests, getType } from "../actions";
 
 export default function RequestReducer(state = INIT_STATE.Request, action) {

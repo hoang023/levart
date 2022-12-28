@@ -1,8 +1,8 @@
-import React, { Fragment, useContext } from "react";
+import React, { Fragment, useContext, useState } from "react";
 import classNames from "classnames/bind";
 import styles from "./AdminPage.module.scss";
 import { useDispatch, useSelector } from "react-redux";
-import { attractionsState$, provincesState$, requestState$ } from "@/redux/selectors";
+import { attractionsState$, provincesState$, requestsState$ } from "@/redux/selectors";
 import { Link, Navigate, Route, Router, useParams } from "react-router-dom";
 import { AuthContext } from "@/contexts/AuthContext";
 import { Skeleton, Space, Tag } from "antd";
@@ -10,87 +10,116 @@ import Home from "../Home/index.js";
 import HotelModal from "@/components/General/Modal/HotelModal";
 import BookingDetail from "@/components/General/Table/BookingDetail";
 import Column from "antd/lib/table/Column";
+import { Value } from "sass";
+import moment, { relativeTimeRounding } from "moment";
 
 const cx = classNames.bind(styles);
 
 function AdminPage() {
-
-const request = useSelector(requestState$);
-console.log("request", request);
   const {
     logoutUser,
     authState: { authLoading, isAuthenticated, user, profile },
   } = useContext(AuthContext);
 
-  const columns = [
-    {
-        title: 'Mã khách sạn',
-        dataIndex: 'name',
-        key: 'name',
-        render: (text) => <a>{text}</a>,
-    },
-    {
-        title: 'Khách sạn',
-        dataIndex: 'age',
-        key: 'age',
-    },
-    {
-        title: 'Tên khách hàng',
-        dataIndex: 'address',
-        key: 'address',
-    },
-    {
-        title: 'Ngày nhận phòng',
-        key: 'tags',
-        dataIndex: 'tags',
-        render: (_, { tags }) => (
-            <>
-                {tags.map((tag) => {
-                    let color = tag.length > 5 ? 'geekblue' : 'green';
-                    if (tag === 'loser') {
-                        color = 'volcano';
-                    }
-                    return (
-                        <Tag color={color} key={tag}>
-                            {tag.toUpperCase()}
-                        </Tag>
-                    );
-                })}
-            </>
-        ),
-    },
-    {
-        title: 'Ngày trả phòng',
-        key: 'action',
-        render: (_, record) => (
-            <Space size="middle">
-                <a>Invite {record.name}</a>
-                <a>Delete</a>
-            </Space>
-        ),
-    },
-    {
-        title: 'Trạng thái',
-        key: 'tags',
-        dataIndex: 'tags',
-        render: (_, { tags }) => (
-            <>
-                {tags.map((tag) => {
-                    let color = tag.length > 5 ? 'geekblue' : 'green';
-                    if (tag === 'loser') {
-                        color = 'volcano';
-                    }
-                    return (
-                        <Tag color={color} key={tag}>
-                            {tag.toUpperCase()}
-                        </Tag>
-                    );
-                })}
-            </>
-        ),
-    },
-];
-const data = [
+  const requests = useSelector(requestsState$);
+  
+  const requestData = requests.map((request) => {
+    const temp = {
+        requestID: request._id,
+        hotelName: request.HotelID.name,
+        userName: request.ProfileID.lastName + ' ' +  request.ProfileID.firstName,
+        checkIn: moment(request.checkIn).format('LL'),
+        checkOut: moment(request.checkOut).format('LL'),
+    }
+    return temp;
+  })
+  
+  console.log(requestData)
+
+const columns2 = [
+
+]
+const columns = [
+        {
+            title: 'Mã yêu cầu',
+            dataIndex: 'requestID',
+            key: 'requestID',
+            // eslint-disable-next-line jsx-a11y/anchor-is-valid
+            render: (Text) => <Link style={{color: "blue"}} to = "/">{Text}</Link>
+        },
+        {
+            title: 'Khách sạn',
+            dataIndex: 'hotelName',
+            key: 'hotelName',
+        },
+        {
+            title: 'Tên khách hàng',
+            dataIndex: 'userName',
+            key: 'userName',
+        },
+        {
+            title: 'Ngày nhận phòng',
+            dataIndex: 'checkIn',
+            key: 'checkIn',
+        },
+        {
+            title: 'Ngày trả phòng',
+            dataIndex: 'checkOut',
+            key: 'checkOut',
+        },
+        // {
+        //     title: 'Ngày nhận phòng',
+        //     key: 'tags',
+        //     dataIndex: 'tags',
+        //     render: (_, { tags }) => (
+        //         <>
+        //             {tags.map((tag) => {
+        //                 let color = tag.length > 5 ? 'geekblue' : 'green';
+        //                 if (tag === 'loser') {
+        //                     color = 'volcano';
+        //                 }
+        //                 return (
+        //                     <Tag color={color} key={tag}>
+        //                         {tag.toUpperCase()}
+        //                     </Tag>
+        //                 );
+        //             })}
+        //         </>
+        //     ),
+        // },
+        // {
+        //     title: 'Ngày trả phòng',
+        //     key: 'action',
+        //     render: (_, record) => (
+        //         <Space size="middle">
+        //             <a>Invite {record.name}</a>
+        //             <a>Delete</a>
+        //         </Space>
+        //     ),
+        // },
+        // {
+        //     title: 'Trạng thái',
+        //     key: 'tags',
+        //     dataIndex: 'tags',
+        //     render: (_, { tags }) => (
+        //         <>
+        //             {tags.map((tag) => {
+        //                 let color = tag.length > 5 ? 'geekblue' : 'green';
+        //                 if (tag === 'loser') {
+        //                     color = 'volcano';
+        //                 }
+        //                 return (
+        //                     <Tag color={color} key={tag}>
+        //                         {tag.toUpperCase()}
+        //                     </Tag>
+        //                 );
+        //             })}
+        //         </>
+        //     ),
+        // },
+    ];
+    //"util": "^0.12.5",
+const datafake = [
     {
         key: '1',
         name: 'John Brown',
@@ -111,112 +140,7 @@ const data = [
         age: 32,
         address: 'Sidney No. 1 Lake Park',
         tags: ['cool', 'teacher'],
-    },
-    {
-        key: '4',
-        name: 'John Brown',
-        age: 32,
-        address: 'New York No. 1 Lake Park',
-        tags: ['nice', 'developer'],
-    },
-    {
-        key: '5',
-        name: 'Jim Green',
-        age: 42,
-        address: 'London No. 1 Lake Park',
-        tags: ['loser'],
-    },
-    {
-        key: '6',
-        name: 'Joe Black',
-        age: 32,
-        address: 'Sidney No. 1 Lake Park',
-        tags: ['cool', 'teacher'],
-    },
-    {
-        key: '7',
-        name: 'John Brown',
-        age: 32,
-        address: 'New York No. 1 Lake Park',
-        tags: ['nice', 'developer'],
-    },
-    {
-        key: '8',
-        name: 'Jim Green',
-        age: 42,
-        address: 'London No. 1 Lake Park',
-        tags: ['loser'],
-    },
-    {
-        key: '9',
-        name: 'Joe Black',
-        age: 32,
-        address: 'Sidney No. 1 Lake Park',
-        tags: ['cool', 'teacher'],
-    },
-    {
-        key: '10',
-        name: 'John Brown',
-        age: 32,
-        address: 'New York No. 1 Lake Park',
-        tags: ['nice', 'developer'],
-    },
-    {
-        key: '11',
-        name: 'Jim Green',
-        age: 42,
-        address: 'London No. 1 Lake Park',
-        tags: ['loser'],
-    },
-    {
-        key: '12',
-        name: 'Joe Black',
-        age: 32,
-        address: 'Sidney No. 1 Lake Park',
-        tags: ['cool', 'teacher'],
-    },
-    {
-        key: '13',
-        name: 'John Brown',
-        age: 32,
-        address: 'New York No. 1 Lake Park',
-        tags: ['nice', 'developer'],
-    },
-    {
-        key: '14',
-        name: 'Jim Green',
-        age: 42,
-        address: 'London No. 1 Lake Park',
-        tags: ['loser'],
-    },
-    {
-        key: '15',
-        name: 'Joe Black',
-        age: 32,
-        address: 'Sidney No. 1 Lake Park',
-        tags: ['cool', 'teacher'],
-    },
-    {
-        key: '16',
-        name: 'John Brown',
-        age: 32,
-        address: 'New York No. 1 Lake Park',
-        tags: ['nice', 'developer'],
-    },
-    {
-        key: '17',
-        name: 'Jim Green',
-        age: 42,
-        address: 'London No. 1 Lake Park',
-        tags: ['loser'],
-    },
-    {
-        key: '18',
-        name: 'Joe Black',
-        age: 32,
-        address: 'Sidney No. 1 Lake Park',
-        tags: ['cool', 'teacher'],
-    },
+    }
 ];
   let body;
   if (authLoading) {
@@ -243,7 +167,12 @@ const data = [
         <Fragment>
           {user.role === "Admin" || user.role === "Supplier" ? 
           <Fragment>
-            <BookingDetail columns={columns} data={data} ></BookingDetail>
+            {/* {requests.map((request, index) => (
+                <div key={index}>{request.ProfileID.firstName}</div>
+            ))} */}
+            <BookingDetail columns={columns}
+            data={requestData}
+            ></BookingDetail>
             </Fragment> : 
           <Navigate to="/"></Navigate>}
         </Fragment>

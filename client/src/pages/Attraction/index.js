@@ -18,6 +18,8 @@ function Attraction() {
     return attraction.name === name;
   });
 
+  console.log(attraction);
+
   let data = {
     description: "",
     openTime: "",

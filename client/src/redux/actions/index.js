@@ -77,7 +77,7 @@ export const createPlaceLists = createActions({
 })
 
 export const getRequests = createActions({
-  getRequestsRequest: (payload) => payload,
+  getRequestsRequest: undefined,
   getRequestsSuccess: (payload) => payload,
   getRequestsFailure: (err) => err,
 });

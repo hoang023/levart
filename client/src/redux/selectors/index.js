@@ -31,4 +31,4 @@ export const attractionsState$ =(state) => state.Attraction.data;
 export const myTripsState$ =(state) => state.MyTrip.data;
 
 //Request
-export const requestState$ = (state) => state.Request.data;
+export const requestsState$ = (state) => state.Request.data;

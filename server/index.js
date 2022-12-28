@@ -11,6 +11,7 @@ import Attraction from "./routers/Attraction.js";
 import User from "./routers/User.js";
 import Profile from "./routers/Profile.js";
 import MyTrip from "./routers/MyTrip.js";
+import Request  from "./routers/Request.js";
 import dotenv from "dotenv";
 
 dotenv.config()
@@ -33,6 +34,7 @@ app.use("/place", Place);
 app.use("/hotel", Hotel);
 app.use("/foodAndDrink", FoodAndDrink);
 app.use("/attraction", Attraction);
+app.use("/request", Request);
 
 mongoose
   .connect(URI, { useNewUrlParser: true, useUnifiedTopology: true })

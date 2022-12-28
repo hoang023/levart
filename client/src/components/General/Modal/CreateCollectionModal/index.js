@@ -53,7 +53,7 @@ function CreateCollectionModal({ display, name }) {
   return (
     <Modal
       title={title}
-      visible={isShow}
+      open={isShow}
       onCancel={handleCancel}
       footer={null}
       width="500px"

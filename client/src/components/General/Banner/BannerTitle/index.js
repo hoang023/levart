@@ -62,7 +62,7 @@ function BannerTitle({ listBannerTitle, type, slider }) {
             {listBannerTitle.path !== "Place" ? (
               <Link
                 to={
-                  "/Filter_" + headerURL[1] + "_" + listBannerTitle.path + "_" + name
+                  "/Filter_" + headerURL[1] + "_" + listBannerTitle.path + "_/" + name
                 }
               >
                 <p className={cx("see-all")}>See all</p>

@@ -9,6 +9,7 @@ import App from "./App";
 import "antd/dist/antd.min.css";
 import GlobalStyles from "@/components/GlobalStyles/GlobalStyles";
 import "@/components/GlobalStyles/AntdFix.css";
+import { BrowserRouter } from "react-router-dom";
 
 
 const sagaMiddleware = createSagaMiddleware();
@@ -27,7 +28,9 @@ sagaMiddleware.run(mySaga);
 
 const root = ReactDOM.createRoot(document.getElementById("root"))
 root.render(<Provider store={store}>
-  <GlobalStyles>
-    <App />
-  </GlobalStyles>
+  <BrowserRouter>
+    <GlobalStyles>
+      <App />
+    </GlobalStyles>
+  </BrowserRouter>
 </Provider>)

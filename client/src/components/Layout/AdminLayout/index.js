@@ -2,7 +2,6 @@ import React, { useContext, useState } from "react";
 import classNames from "classnames/bind";
 import * as actions from "@/redux/actions";
 import { useDispatch } from "react-redux";
-
 import styles from "./AdminLayout.module.scss";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
@@ -56,9 +55,7 @@ function AdminLayout({ children, backgroundColor = false, childrenOutSide }) {
         dispatch(actions.getFoodAndDrinks.getFoodAndDrinksRequest());
         dispatch(actions.getHotels.getHotelsRequest());
         dispatch(actions.getProfiles.getProfilesRequest());
-        dispatch(actions.getRequests.getRequestsRequest( () => {
-            console.log("đã lấy được yêu cầu")
-        }));
+        dispatch(actions.getRequests.getRequestsRequest());
     }, [dispatch]);
 
     const classes = cx("wrapper", {

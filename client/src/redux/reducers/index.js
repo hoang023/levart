@@ -10,6 +10,7 @@ import Hotel from "./Hotel";
 import FoodAndDrink from "./FoodAndDrink";
 import Attraction from "./Attraction";
 import MyTrip from "./MyTrip";
+import Request from "./Request"
 import ChooseCollectionModal from "./ChooseCollectionModal";
 import CreateCollectionModal from "./CreateCollectionModal";
 
@@ -27,4 +28,5 @@ export default combineReducers({
   MyTrip,
   ChooseCollectionModal,
   CreateCollectionModal,
+  Request,
 });

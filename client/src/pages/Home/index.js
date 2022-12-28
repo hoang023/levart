@@ -7,6 +7,7 @@ import {
   foodAndDrinksState$,
   hotelsState$,
   provincesState$,
+  requestsState$,
 } from "@/redux/selectors";
 
 import Banner from "@/components/General/Banner";
@@ -20,7 +21,11 @@ function Home() {
   const attraction = useSelector(attractionsState$);
   const foodAndDrink = useSelector(foodAndDrinksState$);
   const hotel = useSelector(hotelsState$);
+  // const request = useSelector(requestsState$);
 
+  console.log("attraction", attraction)
+  // console.log("request" , request)
+  
   const [show, setShow] = useState(false);
   const [value, setValue] = useState();
 
