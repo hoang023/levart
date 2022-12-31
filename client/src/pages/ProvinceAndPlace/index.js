@@ -18,6 +18,7 @@ function ProvinceAndPlace() {
   let { name } = useParams();
   // let localS = localStorage.getItem("_id");
   // console.log(JSON.parse(localS)._id);
+  console.log("Name Province", name)
 
   const provinces = useSelector(provincesState$);
   const places = useSelector(placesState$);
@@ -31,14 +32,22 @@ function ProvinceAndPlace() {
     .split("/")
     .filter((x) => x);
 
+    let data = {
+      name: "",
+      title: "",
+      description: "",
+    };
+
   const headerURL = path[0].split("_");
   
   let sources = provinces;
 
+  console.log("province", provinces)
+
   if (headerURL[1] === "Place") {
     sources = places;
   }
-
+  console.log("HEADER", headerURL)
   const source = sources.find(function (source) {
     return source.name === name;
   });
@@ -48,17 +57,11 @@ function ProvinceAndPlace() {
     array = lists.filter(function (array) {
       if (headerURL[1] === "Place" && array.placeID !== undefined) {
         return array.placeID.name === name;
-      } else if (headerURL[1] === "Province") {
+      } else if (headerURL[1] === "Province"  && array.provinceID !== undefined) {
         return array.provinceID.name === name;
       }
     });
     return array;
-  };
-
-  let data = {
-    name: "",
-    title: "",
-    description: "",
   };
 
   if (source !== undefined) {

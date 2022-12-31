@@ -11,6 +11,7 @@ import {
   hotelsState$,
   placesState$,
   provincesState$,
+  requestsState$,
 } from "@/redux/selectors";
 import { useSelector } from "react-redux";
 import { useDebounce } from "@/hooks";
@@ -30,6 +31,7 @@ function Search({ large = false, className, tippyWidth, parentCallback }) {
   const attractions = useSelector(attractionsState$);
   const foodAndDrinks = useSelector(foodAndDrinksState$);
   const hotels = useSelector(hotelsState$);
+  // const requests = useSelector(requestsState$);
 
   const debounced = useDebounce(searchValue, 500);
   const inputRef = useRef();

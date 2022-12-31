@@ -76,3 +76,16 @@ export const createPlaceLists = createActions({
   createPlaceListsFailure: (err)=>err,
 })
 
+export const getRequests = createActions({
+  getRequestsRequest: undefined,
+  getRequestsSuccess: (payload) => payload,
+  getRequestsFailure: (err) => err,
+});
+
+export const updateRequests = createActions({
+  updateRequestsRequest: undefined,
+  updateRequestsSuccess: (payload) => payload,
+  updateRequestsFailure: (err) => err,
+});
+
+

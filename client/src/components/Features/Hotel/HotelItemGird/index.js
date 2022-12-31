@@ -24,6 +24,7 @@ function HotelItemGird({
     arrayData2 = arrayData;
   }
 
+
   const dispatch = useDispatch();
 
   const openHotelModal = React.useCallback(() => {

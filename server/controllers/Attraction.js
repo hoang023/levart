@@ -27,7 +27,7 @@ export const getAttractions = async (req, res) => {
     //   provinceID: "62834d22d587a5f7b2b82bac",
     // }
     // );
-
+ 
     // post.save();
 
     await AttractionModel.find()

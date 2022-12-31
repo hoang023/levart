@@ -35,7 +35,7 @@ function CardVertical({ classNames, value, keys, onClick }) {
 
   return (
     <div className={classes}>
-      <Link to={"/Info_" + value.path + "_" + value.name}>
+      <Link to={"/Info_" + value.path + "_/" + value.name}>
         <div className={cx("inner")} onClick={onClick}>
           <div className={cx("image")}>
             <img src={value.image[0]} />

@@ -8,11 +8,11 @@ const cx = classNames.bind(styles);
 function SearchItem({ data, path, ...props }) {
   let pathURL;
   if (path === undefined) {
-    pathURL = "/Info_" + data.path + "_" + data.name;
+    pathURL = "/Info_" + data.path + "_/" + data.name;
   } else {
     data.provinceID
-      ? (pathURL = "/Filter_Place_" + path + "_" + data.name)
-      : (pathURL = "/Filter_Province_" + path + "_" + data.name);
+      ? (pathURL = "/Filter_Place_" + path + "_/" + data.name)
+      : (pathURL = "/Filter_Province_" + path + "_/" + data.name);
   }
   return (
     <Link to={pathURL} className={cx("wrapper")} {...props}>

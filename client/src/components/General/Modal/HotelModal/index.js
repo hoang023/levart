@@ -49,7 +49,7 @@ function HotelModal({ data, defaultActiveKey }) {
   return (
     <Modal
       title="Amenities"
-      visible={isShow}
+      open={isShow}
       onCancel={handleCancel}
       footer={null}
       width="40%"

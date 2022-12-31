@@ -24,7 +24,7 @@ function Card({ classNames, value }) {
 
   return (
     <div className={classes}>
-      <Link to={"/Info_" + value.path + "_" + value.name}>
+      <Link to={`/Info_${value.path}_/${value.name}`}>
         <div className={cx("inner")} onClick={handleClick}>
           <div className={cx("card-title")}>
             <img src={value.image[0]} alt="" />
@@ -47,7 +47,7 @@ function Card({ classNames, value }) {
               <span>
                 {value.provinceID
                   ? value.placeID
-                    ? value.placeID.name + ", " + value.provinceID.name
+                    ? `${value.placeID.name}, ${value.provinceID.name}`
                     : value.provinceID.name
                   : value.location}
               </span>

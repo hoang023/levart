@@ -45,7 +45,7 @@ function MyTripModal({ display, name, ...props }) {
     <Modal
       {...props}
       title={title}
-      visible={isShow}
+      open={isShow}
       onCancel={handleCancel}
       footer={footer}
       width="500px"

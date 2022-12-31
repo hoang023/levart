@@ -6,3 +6,4 @@ function GlobalStyles({ children }) {
 }
 
 export default GlobalStyles;
+

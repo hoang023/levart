@@ -29,7 +29,7 @@ function ImageModal({ data, display, name }) {
   return (
     <Modal
       title={name}
-      visible={isShow}
+      open={isShow}
       onCancel={handleCancel}
       footer={null}
       width="80%"

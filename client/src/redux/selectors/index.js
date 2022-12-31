@@ -29,3 +29,6 @@ export const attractionsState$ =(state) => state.Attraction.data;
 
 //MyTrip
 export const myTripsState$ =(state) => state.MyTrip.data;
+
+//Request
+export const requestsState$ = (state) => state.Request.data;

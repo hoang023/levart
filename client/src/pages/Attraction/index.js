@@ -12,11 +12,14 @@ function Attraction() {
   // console.log(JSON.parse(localS)._id);
   let n = 0;
   let { name } = useParams();
+
   const attractions = useSelector(attractionsState$);
 
   const attraction = attractions.find(function (attraction) {
     return attraction.name === name;
   });
+
+  console.log(attraction);
 
   let data = {
     description: "",
