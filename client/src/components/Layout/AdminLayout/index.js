@@ -70,7 +70,7 @@ function AdminLayout({ children, backgroundColor = false, childrenOutSide }) {
         <div className={classes}>
             {/* <Header /> */}
             <div className={cx("Container")} >
-                <Sider collapsible collapsed={collapsed} onCollapse={(value) => setCollapsed(value)} className={cx("A")}>
+                <Sider className={cx("A")}>
                     <div className={cx("logo")}
                     >
                         <Link to="/">
@@ -98,10 +98,7 @@ function AdminLayout({ children, backgroundColor = false, childrenOutSide }) {
                         <Breadcrumb.Item>Bill</Breadcrumb.Item>
                     </Breadcrumb>
                     <div className={cx("Content")}
-                        style={{
-                            padding: 24,
-                            // background: colorBgContainer,
-                        }}
+
                     >
                         {children}
                     </div>

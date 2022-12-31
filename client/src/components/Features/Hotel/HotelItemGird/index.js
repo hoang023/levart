@@ -24,9 +24,6 @@ function HotelItemGird({
     arrayData2 = arrayData;
   }
 
-  console.log("arrayData",arrayData);
-  console.log("arrayData2",arrayData2);
-
 
   const dispatch = useDispatch();
 

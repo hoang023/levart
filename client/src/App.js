@@ -12,7 +12,7 @@ import MyTripModal from "./components/General/Modal/MyTripModal";
 import CreateCollectionModal from "./components/General/Modal/CreateCollectionModal";
 import { roomType } from "./components/General/IconText/Data";
 function App() {
-
+ 
  
   return (
     <AuthContextProvider>

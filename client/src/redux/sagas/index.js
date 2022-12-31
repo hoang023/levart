@@ -117,6 +117,15 @@ function* fetchRequestsSaga(action) {
     yield put(actions.getRequests.getRequestsFailure(error));
   }
 }
+function* updateRequestSaga(action) {
+  try {
+    const request = yield call(api.updateRequest, action.payload);
+
+    yield put(actions.updateRequests.updateRequestsSuccess(request.data));
+  } catch (error) {
+    yield put(actions.updateRequests.updateRequestsFailure(error.response.data));
+  }
+}
 
 
 function* mySaga() {
@@ -139,7 +148,7 @@ function* mySaga() {
   yield takeLatest(actions.createPlaceLists.createPlaceListsRequest, fetchCreatePlaceListsSaga);
 
   yield takeLatest(actions.getRequests.getRequestsRequest, fetchRequestsSaga);
-  
+  yield takeLatest(actions.updateRequests.updateRequestsRequest, updateRequestSaga);
 }
 
 export default mySaga;

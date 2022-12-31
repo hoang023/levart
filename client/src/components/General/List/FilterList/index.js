@@ -128,7 +128,7 @@ function FilterList({ context, data }) {
   useEffect(() => {
     apply();
   }, [data, context]);
-
+ 
   return (
     <div className={cx("wrapper")}>
       {state.slice(numberSlice[0], numberSlice[1]).map((value, index) => {

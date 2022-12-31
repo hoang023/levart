@@ -26,7 +26,7 @@ export const getAttractions = async (req, res) => {
     //   placeID: "639e706c02e084443c9715f8",
     // }
     // );
-
+ 
     // post.save();
 
     await AttractionModel.find()

@@ -1,5 +1,5 @@
 import { INIT_STATE } from "../../constant";
-import { getRequests, getType } from "../actions";
+import { updateRequests, getRequests, getType } from "../actions";
 
 export default function RequestReducer(state = INIT_STATE.Request, action) {
     switch (action.type) {
@@ -18,6 +18,23 @@ export default function RequestReducer(state = INIT_STATE.Request, action) {
             return {
                 ...state,
                 isLoading: false,
+            };
+        case getType(updateRequests.updateRequestsSuccess):
+
+            // messageSuccess("Chỉnh sửa thành công" );
+            return {
+                ...state,
+                data: state.data.map((Requests) =>
+                    Requests._id === action.payload._id ? action.payload : Requests
+                ),
+            };
+        case getType(updateRequests.updateRequestsFailure):
+            // messageError(action.payload);
+
+            return {
+                ...state,
+                isLoading: true,
+                data: [...state.data],
             };
         default:
             return state;

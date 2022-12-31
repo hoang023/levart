@@ -7,8 +7,9 @@ import Filter from '@/pages/Filter';
 import { AdminLayout, AuthenticationLayout, FilterLayout, InnerLayout } from '@/components/Layout';
 import SignIn from '@/pages/Authentication/SignIn';
 import SignUp from '@/pages/Authentication/SignUp';
-import Admin from '@/pages/Admin';
-
+import AdminBookingDetail from '@/pages/Admin/BookingDetail';
+import AdminDashBoard from '@/pages/Admin/Dashboard';
+import RequestDetail from '@/pages/Admin/RequestDetail';
 //Public Routes
 const publishRoutes = [
     {path: "/", component: Home},
@@ -29,7 +30,9 @@ const publishRoutes = [
 ];
 
 const privateRoutes = [
-    {path: "/Admin", component: Admin, layout: AdminLayout},
+    {path: "/AdminBookingDetail", component: AdminBookingDetail, layout: AdminLayout},
+    {path: "/AdminDashBoard", component: AdminDashBoard, layout: AdminLayout},
+    {path: "/RequestDetail/:_id", component: RequestDetail, layout: AdminLayout},
 ];
 
 export { publishRoutes, privateRoutes };

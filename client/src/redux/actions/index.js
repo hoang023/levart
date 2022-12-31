@@ -82,4 +82,10 @@ export const getRequests = createActions({
   getRequestsFailure: (err) => err,
 });
 
+export const updateRequests = createActions({
+  updateRequestsRequest: undefined,
+  updateRequestsSuccess: (payload) => payload,
+  updateRequestsFailure: (err) => err,
+});
+
 

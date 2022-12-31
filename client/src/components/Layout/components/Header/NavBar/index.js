@@ -44,7 +44,7 @@ function NavBar() {
         {/* {user.role === "Admin" || "Supplier" ? <div> */}
         {user.role !== "User" ? <Fragment>
 
-          <Button textWithIcon to={"/Admin"} onClick= { () => handleManage(manage)}>
+          <Button textWithIcon to={"/AdminDashBoard"} onClick= { () => handleManage(manage)}>
             <span className={cx("icon-trips")}>
               <AiOutlineHdd className={cx("btn-icon")} />
               <p>Manage</p>
