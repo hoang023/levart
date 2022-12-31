@@ -1,13 +1,14 @@
-import { requestsState$ } from "@/redux/selectors";
+import { hotelsState$, requestsState$ } from "@/redux/selectors";
 import classNames from "classnames"
 import { CgColorBucket } from "react-icons/cg";
 import { useDispatch, useSelector } from "react-redux";
 import { Navigate, Route, useParams } from "react-router-dom";
 import styles from "./RequestDetail.module.scss";
 import Button from "@/components/General/Button/Button";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import *as actions from "../../../redux/actions";
 import { message } from "antd";
+import { AuthContext } from "@/contexts/AuthContext";
 
 const cx = classNames.bind(styles)
 
@@ -74,9 +75,10 @@ function RequestDetail() {
                 }
             },
         },
+    
 
-
-    };
+    }
+    
     if (request !== undefined) {
         data = {
             ...request,

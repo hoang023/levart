@@ -25,7 +25,8 @@ const schema = new mongoose.Schema (
         statusRequest: {
           type: String,
           required: true,
-          enum : ['Approved','Not Approved','Cancel']
+          default: 'Not Approved',
+          enum : ['Approved','Not Approved'],
         }
     }
 )

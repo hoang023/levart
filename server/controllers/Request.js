@@ -86,24 +86,30 @@ export const updateRequest = async (req, res, next) => {
       dataRequest,
       { new: true }
     )
-        .populate({
-          path: "HotelID",
+      .populate({
+        path: "ProfileID",
+        populate: {
+          path: "UserID",
+        }
+      })
+      .populate({
+        path: "HotelID",
+        populate: {
+          path: "supplierID"
+        },
+        populate: {
+          path: "placeID",
           populate: {
-            path: "supplierID"
-          },
-          populate: {
-            path: "placeID",
-            populate: {
-              path: "provinceID"
-            }
+            path: "provinceID"
           }
-        })
-        .exec()
-        .then((request) => {
-          res.status(200).json(request)
-        });
+        }
+      })
+      .exec()
+      .then((request) => {
+        res.status(200).json(request)
+      });
   } catch (err) {
-  res.status(500).json({ error: err });
-  next()
-}
+    res.status(500).json({ error: err });
+    next()
+  }
 }
