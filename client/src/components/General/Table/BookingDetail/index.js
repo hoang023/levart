@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Space, Table, Tag } from 'antd';
 import styles from "./BookingDetail.module.scss";
