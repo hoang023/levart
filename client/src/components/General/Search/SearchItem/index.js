@@ -21,7 +21,7 @@ function SearchItem({ data, path, ...props }) {
         <p className={cx("name")}>{data.name}</p>
         <p className={cx("location")}>
           {data.placeID
-            ? data.placeID.name + " province, " + data.provinceID.location
+            ? data.placeID.name + " province, " + data.placeID.provinceID.location
             : data.provinceID
             ? data.provinceID.name + " , " + data.provinceID.location
             : data.location}

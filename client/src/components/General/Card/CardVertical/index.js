@@ -6,7 +6,7 @@ import styles from "./CardVertical.module.scss";
 
 const cx = classNames.bind(styles);
 
-function CardVertical({ classNames, value, keys, onClick }) {
+function CardVertical({ classNames, value, keys, onClick, children }) {
   let { name } = useParams();
   const url = window.location.pathname;
   const path = url
@@ -35,11 +35,13 @@ function CardVertical({ classNames, value, keys, onClick }) {
 
   return (
     <div className={classes}>
-      <Link to={"/Info_" + value.path + "_/" + value.name}>
+      {/* <Link to={"/Info_" + value.path + "_/" + value.name}> */}
         <div className={cx("inner")} onClick={onClick}>
-          <div className={cx("image")}>
-            <img src={value.image[0]} />
-          </div>
+        <Link className={cx("image")} to={"/Info_" + value.path + "_/" + value.name}>
+          {/* <div > */}
+            <img src={value.image[0]} alt='' />
+          {/* </div> */}
+          </Link>
           <div className={cx("description")}>
             <p>
               {keys + 1}. {value.name}
@@ -57,8 +59,9 @@ function CardVertical({ classNames, value, keys, onClick }) {
               <p>{value.description.slice(0, 200)}...</p>
             ) : null}
           </div>
+          {children}
         </div>
-      </Link>
+      {/* </Link> */}
     </div>
   );
 }

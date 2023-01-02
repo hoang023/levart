@@ -7,7 +7,7 @@
   align-items: center;
   margin-top: 64px;
 }
-.top-content{
+.top-content {
   display: flex;
   justify-content: space-between;
   background-color: #fff;
@@ -15,15 +15,18 @@
   margin-bottom: 12px;
   border-radius: 5px;
   padding: 8px 12px;
-
 }
 .title {
   font-size: 2rem;
   color: #333;
   font-weight: 500;
-  // line-height: 100%  
+  // line-height: 100%
 }
 
-.customButton{
-  border-radius: 5px;
+.update-btn {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  margin-right: 12px;
+  margin-bottom: 12px;
 }

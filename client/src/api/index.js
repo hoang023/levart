@@ -34,6 +34,7 @@ export const fetchProvince = () => axios.get(`${URL}/province`);
 export const fetchPlace = () => axios.get(`${URL}/place`);
 
 export const fetchHotel = () => axios.get(`${URL}/hotel`);
+export const createHotels = (payload) => axios.post(`${URL}/create-hotel`, payload);
 
 export const fetchFoodAndDrink = () => axios.get(`${URL}/foodAndDrink`);
 
