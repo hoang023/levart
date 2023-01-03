@@ -126,10 +126,11 @@ const schema = new mongoose.Schema(
       type: Schema.Types.ObjectId,
       ref: "Place",
     },
-    provinceID: {
-      type: Schema.Types.ObjectId,
-      ref: "Province",
+    supplierID: {
+      type:  Schema.Types.ObjectId,
+      ref: "Supplier"
     },
+
     path: {
       type: String,
       default: "Hotel",

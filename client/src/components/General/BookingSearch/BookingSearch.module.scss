@@ -1,0 +1,42 @@
+.container {
+    margin-bottom: 20px;
+    .title {
+        font-size: 1.2em;
+        font-weight: bold;
+    }
+    .location {
+        .location-content {
+            border: 1px solid 	#008080;
+            height: 40px;
+            border-radius: 20px;
+            .icon-search {
+                padding-left: 5px;
+                color: #008080;
+                 vertical-align: middle;
+               
+            }
+        }
+    }
+    .date {
+        border: 1px solid #008080;
+    }
+    .roomType {
+        display: flex;
+        flex-direction: column;
+    }
+  
+   
+
+}
+
+.location-content input {
+   padding-left: 5px;
+   vertical-align: middle;
+   width: 400px;
+  
+}
+.roomType select {
+    border: 1px solid 	#008080;
+    border-radius: 20px;
+    height: 40px;
+}

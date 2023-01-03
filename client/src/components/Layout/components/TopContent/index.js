@@ -4,11 +4,13 @@ import { Rate } from "antd";
 import { MdPlace } from "react-icons/md";
 import { FiPhone } from "react-icons/fi";
 import { AiOutlineGlobal } from "react-icons/ai";
+import Button from "@/components/General/Button/Button"
 import { attractionsState$, provincesState$ } from "@/redux/selectors";
 import { useDispatch, useSelector } from "react-redux";
 
 import styles from "./TopContent.module.scss";
 import IconButton from "@/components/General/IconButton";
+
 import { useParams } from "react-router-dom";
 const cx = classNames.bind(styles);
 
@@ -26,7 +28,9 @@ function TopContent({ data, display }) {
     }
   } else if (display[0] === "Info") {
     if (display[1] !== "Province" && display[1] !== "Place") {
+      
       title = <span>{data.name}</span>;
+     
     } else {
       title = (
         <span>
@@ -41,6 +45,9 @@ function TopContent({ data, display }) {
         </span>
       );
     }
+     
+     
+    
   }
 
   const RateStart = () => {
@@ -51,6 +58,7 @@ function TopContent({ data, display }) {
 
   return (
     <div className={classes}>
+     
       <div className={cx("inner")}>
         <div className={cx("top-content")}>
           {title}
@@ -68,7 +76,18 @@ function TopContent({ data, display }) {
         display[1] !== "Province" &&
         display[1] !== "Place" ? (
           <div>
+            {console.log("dsa", display[1])}
+            {display[1] === "Hotel" ? 
+            (
+              <Button medium primary >
+              <span>BOOK NOW</span>
+            </Button>
+            )
+             :
+             null
+            }
             <div className={cx("start-rate")}>
+           
               <RateStart />
               <span className="ant-rate-text">( {data.evaluatePoint} )</span>
             </div>
