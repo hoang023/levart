@@ -30,10 +30,10 @@ export const getHotels = async (req, res) => {
       .populate({
         path: "placeID",
         populate: {
-          path: "provinceID"
+          path: "provinceID",
         }
       })
-     
+
       .exec()
       .then((hotels) => {
         res.status(200).json(hotels);

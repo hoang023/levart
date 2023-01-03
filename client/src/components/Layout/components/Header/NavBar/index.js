@@ -24,7 +24,7 @@ function NavBar() {
 
   const handleManage = () => {
     setManage(!manageState);
-    console.log("nowstate", manage)
+    // console.log("nowstate", manage)
   }
 
   if (authLoading) {

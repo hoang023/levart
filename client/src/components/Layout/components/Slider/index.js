@@ -11,7 +11,6 @@ const cx = classNames.bind(styles);
 function Slider({ className }) {
   const province = useSelector(provincesState$);
 
-  console.log("Slider", province)
   const classes = cx("wrapper", {
     [className]: className,
   });

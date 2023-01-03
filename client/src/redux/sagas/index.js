@@ -1,4 +1,4 @@
-import { takeLatest, call, put } from "redux-saga/effects";
+import { takeLatest, call, put, take } from "redux-saga/effects";
 import * as actions from "../actions";
 import * as api from "../../api";
 
@@ -52,6 +52,14 @@ function* fetchHotelSaga(action) {
   }
 }
 
+function* createHotelSaga(action) {
+  try {
+    const hotel = yield call(api.createHotels, action.payload);
+    yield put(actions.createHotels.createHotelsSuccess(hotel.data));
+  } catch (error) {
+    yield put(actions.createHotels.createHotelsFailure(error.response.data));
+  }
+}
 
 function* fetchFoodAndDrinkSaga(action) {
   try {
@@ -138,6 +146,7 @@ function* mySaga() {
   yield takeLatest(actions.getPlaces.getPlacesRequest, fetchPlaceSaga);
 
   yield takeLatest(actions.getHotels.getHotelsRequest, fetchHotelSaga);
+  yield takeLatest(actions.createHotels.createHotelsRequest, createHotelSaga);
 
   yield takeLatest(actions.getFoodAndDrinks.getFoodAndDrinksRequest, fetchFoodAndDrinkSaga);
 

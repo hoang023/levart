@@ -11,6 +11,7 @@ import BookingDetail from "@/components/General/Table/BookingDetail";
 import Column from "antd/lib/table/Column";
 import { Value } from "sass";
 import moment, { relativeTimeRounding } from "moment";
+import Button from "@/components/General/Button/Button";
 
 const cx = classNames.bind(styles);
 
@@ -20,7 +21,7 @@ function AdminBookingDetail() {
     authState: { authLoading, isAuthenticated, user, profile },
   } = useContext(AuthContext);
 
-  let {_id}  = useParams()
+  let { _id } = useParams()
   const requests = useSelector(requestsState$);
 
   const requestData = requests.map((request, index) => {
@@ -31,9 +32,12 @@ function AdminBookingDetail() {
       userName: request.ProfileID.lastName + ' ' + request.ProfileID.firstName,
       checkIn: moment(request.checkIn).format('LL'),
       checkOut: moment(request.checkOut).format('LL'),
+      statusRequest: request.statusRequest,
     }
     return temp;
   })
+
+  const requestNotApproved = requests.filter(temp => temp.statusRequest === "Not Approved Yet")
 
   console.log(requestData)
 
@@ -76,6 +80,24 @@ function AdminBookingDetail() {
       title: 'Ngày trả phòng',
       dataIndex: 'checkOut',
       key: 'checkOut',
+    },
+    {
+      title: 'Trạng thái',
+      key: 'statusRequest',
+      dataIndex: 'statusRequest',
+      render: (Text) => {
+        let color;
+        if(Text === "Approved") {
+          color = 'green'
+        }else if(  Text === "Refused") {
+          color = 'volcano'
+        } else{
+          color = 'yellow'
+        }
+        return (
+          <Tag style={{fontSize: '1.2rem', fontWeight: '500'}} color={color}>{Text.toUpperCase()}</Tag>
+        )
+      }
     },
     // {
     //     title: 'Ngày nhận phòng',
@@ -120,7 +142,7 @@ function AdminBookingDetail() {
     //                 }
     //                 return (
     //                     <Tag color={color} key={tag}>
-    //                         {tag.toUpperCase()}
+    //                 s        {tag.toUpperCase()}
     //                     </Tag>
     //                 );
     //             })}
@@ -174,8 +196,12 @@ function AdminBookingDetail() {
     //   </div>
     // );
     body = (
-      <Fragment>
-        {user.role === "Admin" || user.role === "Supplier" ?
+      <div className={cx("wrapper")}>
+      <div className={cx("top-content")}>
+        <div className={cx("title")}>You have {requestNotApproved.length} unapproved request </div>
+        {/* <Button primary medium to="/AdminBookingDetail" >Booking Detail</Button> */}
+      </div>
+      {user.role === "Admin" || user.role === "Supplier" ?
           <Fragment>
             {/* {requests.map((request, index) => (
                 <div key={index}>{request.ProfileID.firstName}</div>
@@ -185,7 +211,8 @@ function AdminBookingDetail() {
             ></BookingDetail>
           </Fragment> :
           <Navigate to="/"></Navigate>}
-      </Fragment>
+      
+    </div>
     )
   } else {
     body = (

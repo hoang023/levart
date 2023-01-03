@@ -18,6 +18,7 @@ function RequestDetail() {
     let { _id } = useParams();
     const requests = useSelector(requestsState$);
 
+
     const dispatch = useDispatch();
     const request = requests.find(function (request) {
         return request._id === _id;
@@ -36,7 +37,7 @@ function RequestDetail() {
     }
 
     const handleCancelRequest = (() => {
-        approve.statusRequest = 'Not Approved'
+        approve.statusRequest = 'Refused'
         dispatch(actions.updateRequests.updateRequestsRequest(approve));
         setApprove(request);
     })

@@ -14,28 +14,26 @@ import {
     PieChartOutlined,
     TeamOutlined,
     UserOutlined,
+    AppstoreAddOutlined 
 } from '@ant-design/icons';
 import { Breadcrumb, Layout, Menu } from 'antd';
 import { Link } from "react-router-dom";
 const { Content, Sider } = Layout;
-function getItem(label, key, icon, children) {
+function getItem(label, key, icon, children, to) {
     return {
         key,
         icon,
         children,
         label,
+        to,
     };
 }
 const items = [
-    getItem('Option 1', '1', <PieChartOutlined />),
-    getItem('Option 2', '2', <DesktopOutlined />),
-    getItem('User', 'sub1', <UserOutlined />, [
-        getItem('Tom', '3'),
-        getItem('Bill', '4'),
-        getItem('Alex', '5'),
-    ]),
+    getItem('Dash board', '1',<Link to="/AdminDashBoard"><PieChartOutlined /></Link>),
+    getItem('Request', '2', <Link to="/AdminBookingDetail"><DesktopOutlined /></Link>),
+    getItem('User', 'sub1',<Link to="/AdminBookingDetail"><UserOutlined /></Link>),
     getItem('Team', 'sub2', <TeamOutlined />, [getItem('Team 1', '6'), getItem('Team 2', '8')]),
-    getItem('Files', '9', <FileOutlined />),
+    getItem('Service', '9',  <Link to="/Supply"><AppstoreAddOutlined /></Link>),
 ];
 const cx = classNames.bind(styles);
 
@@ -89,14 +87,14 @@ function AdminLayout({ children, backgroundColor = false, childrenOutSide }) {
                         margin: '0 16px',
                     }}
                 >
-                    <Breadcrumb
+                    {/* <Breadcrumb
                         style={{
                             margin: '16px 0',
                         }}
                     >
                         <Breadcrumb.Item>User</Breadcrumb.Item>
                         <Breadcrumb.Item>Bill</Breadcrumb.Item>
-                    </Breadcrumb>
+                    </Breadcrumb> */}
                     <div className={cx("Content")}
 
                     >

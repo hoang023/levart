@@ -10,6 +10,8 @@ import SignUp from '@/pages/Authentication/SignUp';
 import AdminBookingDetail from '@/pages/Admin/BookingDetail';
 import AdminDashBoard from '@/pages/Admin/Dashboard';
 import RequestDetail from '@/pages/Admin/RequestDetail';
+import Supply from '@/pages/Admin/Supply';
+import NewSupply from '@/pages/Admin/Supply/NewSupply';
 //Public Routes
 const publishRoutes = [
     {path: "/", component: Home},
@@ -34,6 +36,8 @@ const privateRoutes = [
     {path: "/AdminBookingDetail", component: AdminBookingDetail, layout: AdminLayout},
     {path: "/AdminDashBoard", component: AdminDashBoard, layout: AdminLayout},
     {path: "/RequestDetail/:_id", component: RequestDetail, layout: AdminLayout},
+    {path: "/Supply", component: Supply, layout: AdminLayout},    
+    {path: "/NewSupply", component: NewSupply, layout: AdminLayout},          
 ];
 
 export { publishRoutes, privateRoutes };

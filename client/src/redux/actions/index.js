@@ -46,6 +46,12 @@ export const getHotels = createActions({
   getHotelsFailure: (err) => err,
 });
 
+export const createHotels = createActions({
+  createHotelsRequest: (payload)=>payload,
+  createHotelsSuccess: (payload)=>payload,
+  createHotelsFailure: (err)=>err,
+})
+
 export const getFoodAndDrinks = createActions({
   getFoodAndDrinksRequest: undefined,
   getFoodAndDrinksSuccess: (payload) => payload,
