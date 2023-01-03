@@ -4,6 +4,7 @@ import classNames from "classnames/bind";
 import React from "react";
 import styles from "./Sidebar.module.scss";
 import SidebarItem from "./SidebarItem";
+import BookingSearch from "@/components/General/BookingSearch";
 import {
   property,
   roomType,
@@ -73,6 +74,7 @@ function Sidebar({ parentCallback }) {
 
   return (
     <div className={cx("wrapper")}>
+      <BookingSearch />
       <MContext.Consumer>
         {(context) => (
           <SidebarItem>

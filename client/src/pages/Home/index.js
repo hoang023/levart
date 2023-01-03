@@ -13,6 +13,7 @@ import {
 import Banner from "@/components/General/Banner";
 import ListOfBtnImg from "@/components/General/List/ListOfBtnImg";
 import Search from "@/components/General/Search";
+import BookingBar from "@/components/General/BookingBar";
 import styles from "./Home.module.scss";
 
 const cx = classNames.bind(styles);
@@ -55,6 +56,7 @@ function Home() {
           />
         )}
       </div>
+      <BookingBar></BookingBar>
       <ListOfBtnImg parentCallback={callbackFunction} />
 
       <Banner

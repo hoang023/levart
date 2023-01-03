@@ -26,6 +26,7 @@ const publishRoutes = [
     {path: "/Filter_Place_Hotel_/:name", component: Filter, layout: FilterLayout },
     {path: "/Filter_Province_FoodAndDrink_/:name", component: Filter, layout: FilterLayout },
     {path: "/Filter_Place_FoodAndDrink_/:name", component: Filter, layout: FilterLayout },
+    
     // {path: "/Admin", component: Admin},
 ];
 
