@@ -40,7 +40,8 @@ function Filter() {
     let array;
     array = lists.filter(function (array) {
       if (headerURL[1] === "Place" && array.placeID !== undefined) {
-        return array.placeID.name === name;
+        return array.placeID.provinceID.name === name;
+        // return array.placeID.name === name;
       } else if (headerURL[1] === "Province") {
         return array.placeID.provinceID.name === name;
       }
