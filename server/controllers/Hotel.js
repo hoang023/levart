@@ -29,10 +29,11 @@ export const getHotels = async (req, res) => {
     await HotelModel.find()
       .populate({
         path: "placeID",
+        populate: {
+          path: "provinceID",
+        }
       })
-      .populate({
-        path: "provinceID",
-      })
+
       .exec()
       .then((hotels) => {
         res.status(200).json(hotels);

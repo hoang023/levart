@@ -134,6 +134,10 @@ const schema = new mongoose.Schema(
       type: String,
       default: "Hotel",
     },
+    supplierID: {
+      type:  Schema.Types.ObjectId,
+      ref: "Supplier",
+    }
   },
 );
 

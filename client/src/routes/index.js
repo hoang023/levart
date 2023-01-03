@@ -36,7 +36,7 @@ const privateRoutes = [
     {path: "/AdminDashBoard", component: AdminDashBoard, layout: AdminLayout},
     {path: "/RequestDetail/:_id", component: RequestDetail, layout: AdminLayout},
     {path: "/Supply", component: Supply, layout: AdminLayout},    
-    {path: "NewSupply", component: NewSupply, layout: AdminLayout},          
+    {path: "/NewSupply", component: NewSupply, layout: AdminLayout},          
 ];
 
 export { publishRoutes, privateRoutes };

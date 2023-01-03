@@ -1,8 +1,8 @@
-import React, { Fragment, useContext, useState } from "react";
+import React, { Fragment, useContext, useEffect, useState } from "react";
 import classNames from "classnames/bind";
 import styles from "./NewSupply.module.scss";
-import { useDispatch, useSelector } from "react-redux";
-import { hotelsState$ } from "@/redux/selectors";
+import { shallowEqual, useDispatch, useSelector } from "react-redux";
+import { hotelsState$, placesState$, provincesState$ } from "@/redux/selectors";
 import { Navigate } from "react-router-dom";
 import { AuthContext } from "@/contexts/AuthContext";
 import { Skeleton } from "antd";
@@ -23,6 +23,8 @@ import {
   Checkbox,
   Upload,
 } from 'antd';
+import { property } from "@/components/General/IconText/Data";
+import { BsCurrencyEuro } from "react-icons/bs";
 
 const cx = classNames.bind(styles);
 
@@ -32,8 +34,14 @@ function NewSupply() {
     authState: { authLoading, isAuthenticated, user, profile },
   } = useContext(AuthContext);
 
-  const dispatch = useDispatch(); 
+  const dispatch = useDispatch();
   const hotel = useSelector(hotelsState$);
+  console.log("hotelllll", hotel
+  )
+  const provinces = useSelector(provincesState$);
+  // console.log(provinces)
+  const places = useSelector(placesState$);
+  // console.log(places)
 
   const handleAddSupply = () => {
 
@@ -48,12 +56,15 @@ function NewSupply() {
 
   const { Option } = Select;
   const handleChange = (value) => {
-    console.log(`selected ${value}`);
+    let temp = {
+
+    }
   };
 
+
   const handleSubmit = () => {
-    console.log( "hotel daata", newHotel)
-    // dispatch(actions.createHotels.createHotelsRequest(hotelData));
+    // console.log("hotel daata", newHotel)
+    dispatch(actions.createHotels.createHotelsRequest(newHotel));
   }
 
   let hotelData = {
@@ -91,7 +102,7 @@ function NewSupply() {
     description: "",
     phone: "",
     price: "",
-    image: [],
+    image: "",
     website: "",
     evaluatePoint: 4,
     placeID: "",
@@ -99,6 +110,93 @@ function NewSupply() {
     path: "Hotel",
   }
   const [newHotel, setNewHotel] = useState(hotelData);
+
+  let newHotels = hotelData;
+  let type;
+  let roomType;
+  let roomFeatures;
+  let property;
+
+  useEffect(() => {
+    console.log("current Hotel", newHotel)
+  }, [newHotel])
+
+  const handleChangeType = (value) => {
+    let temp = [];
+    value.forEach(element => {
+      temp.push([element, true])
+      return temp;
+    });
+    type = Object.fromEntries(temp)
+    type = {
+      ...newHotel.type,
+      ...type
+    }
+    newHotels = {
+      ...newHotel,
+      type
+    }
+    setNewHotel(newHotels)
+    return type;
+  };
+  const handleChangeRoomType = (value) => {
+    let temp = [];
+    value.forEach(element => {
+      temp.push([element, true])
+      return temp;
+    });
+    roomType = Object.fromEntries(temp)
+    console.log(roomType)
+    roomType = {
+      ...newHotel.roomType,
+      ...roomType
+    }
+    newHotels = {
+      ...newHotel,
+      roomType
+    }
+    setNewHotel(newHotels)
+    return roomType;
+  };
+  const handleChangeRoomFeatures = (value) => {
+    let temp = [];
+    value.forEach(element => {
+      temp.push([element, true])
+      return temp;
+    });
+    roomFeatures = Object.fromEntries(temp)
+    console.log(roomFeatures)
+    roomFeatures = {
+      ...newHotel.roomFeatures,
+      ...roomFeatures
+    }
+    newHotels = {
+      ...newHotel,
+      roomFeatures
+    }
+    setNewHotel(newHotels)
+    return roomFeatures;
+  };
+  const handleChangeProperty = (value) => {
+    let temp = [];
+    value.forEach(element => {
+      temp.push([element, true])
+      return temp;
+    });
+    property = Object.fromEntries(temp)
+    console.log(property)
+    property = {
+      ...newHotel.property,
+      ...property
+    }
+    newHotels = {
+      ...newHotel,
+      property
+    }
+    setNewHotel(newHotels)
+    return property;
+  };
+
   if (authLoading) {
     body = (
       <Skeleton
@@ -144,83 +242,93 @@ function NewSupply() {
           </Radio.Group>
         </Form.Item> */}
                 <Form.Item label="Name">
-                  <Input />
+                  <Input onChange={(e) => setNewHotel({ ...newHotel, name: e.target.value })}></Input>
                 </Form.Item>
                 <Form.Item label="Phone Number">
-                  <Input type="Number" />
+                  <Input onChange={(e) => setNewHotel({ ...newHotel, phone: e.target.value })} type="Number" />
                 </Form.Item>
                 <Form.Item label="Location">
+                  <Input onChange={(e) => setNewHotel({ ...newHotel, location: e.target.value })}></Input>
+                </Form.Item>
+                <Form.Item label="Province/City">
                   <Cascader
-                    options={[
-                      {
-                        value: 'zhejiang',
-                        label: 'Zhejiang',
-                        children: [
-                          {
-                            value: 'hangzhou',
-                            label: 'Hangzhou',
-                          },
-                        ],
-                      },
-                    ]}
+
+                    onChange={(e) => {
+                      setNewHotel({...hotelData, placeID: e[1]})
+                      console.log(e)
+                    }}
+                    // options={[
+                    //   {
+                    //     key: '1',
+                    //     value: 'zhejiang',
+                    //     label: 'Zhejiang',
+                    //     children: [
+                    //       {
+                    //         value: 'hangzhou',
+                    //         label: 'Hangzhou',
+                    //       },
+                    //     ],
+                    //   },
+                    //   {
+                    //     key: '2',
+                    //     value: 'zheiang',
+                    //     label: 'Zhjiang',
+                    //     children: [
+                    //       {
+                    //         value: 'hagzhou',
+                    //         label: 'Hngzhou',
+                    //       },
+                    //     ],
+                    //   },
+                    // ]}
+
+                    options={provinces.map((province) => {
+
+                      // console.log(place)
+                      // let place = [""];
+                      let place = places.filter((place) => place.provinceID._id === province._id).map((place, index) => ({
+                        key: index,
+                        label: `${place.name}`,
+                        value: `${place._id}`,
+                      }))
+                      return (
+                        {
+                          key: `${province.name}`,
+                          label: `${province.name}`,
+                          value: `${province._id}`,
+                          children: place,
+                        }
+                      )
+                    })}
                   />
+
                 </Form.Item>
                 <Form.Item label="Price">
-                  <Select>
-                    <Select.Option value="demo">Demo</Select.Option>
-                  </Select>
+                  <Input onChange={(e) => setNewHotel({ ...newHotel, price: Number(e.target.value) })} type="number" prefix="VNĐ"></Input>
                 </Form.Item>
                 <Form.Item label="TextArea">
-                  <TextArea rows={4} />
+                  <TextArea rows={4} onChange={(e) => setNewHotel({ ...newHotel, description: e.target.value })} />
                 </Form.Item>
-                {/* <Form.Item label="TreeSelect">
-                  <TreeSelect
-                    treeData={[
-                      {
-                        title: 'Light',
-                        value: 'light',
-                        children: [
-                          {
-                            title: 'Bamboo',
-                            value: 'bamboo',
-                          },
-                        ],
-                      },
-                    ]}
-                  />
-                </Form.Item>
-
-                <Form.Item label="DatePicker">
-                  <DatePicker />
-                </Form.Item>
-                <Form.Item label="RangePicker">
-                  <RangePicker />
-                </Form.Item>
-                <Form.Item label="InputNumber">
-                  <InputNumber />
-                </Form.Item>
-                <Form.Item label="Switch" valuePropName="checked">
-                  <Switch />
-                </Form.Item> */}
                 <Form.Item label="type" >
                   <Select
                     mode="multiple"
                     style={{
                       width: '100%',
                     }}
-                    placeholder="select one country"
-                    defaultValue={['china']}
-                    onChange={handleChange}
+                    placeholder="Select one of type"
+                    // defaultValue={['hotel']}
+                    onChange={handleChangeType}
                     optionLabelProp="label"
                   >
-                    <Option value="china" label="China">
-                      <div className="demo-option-label-item">
-                        <span aria-label="China">
-                          🇨🇳
-                        </span>
-                        China (中国)
-                      </div>
-                    </Option>
+                    {Object.entries(hotelData.type).map((key, index) => (
+                      <Option value={key[0]} key={index} label={key[0]}>
+                        <div className="demo-option-label-item">
+                          <span aria-label={key[0]}>
+                            {key[0]}
+                          </span>
+                        </div>
+                      </Option>
+                    ))}
                   </Select>
                 </Form.Item>
                 <Form.Item label="Room type" >
@@ -229,19 +337,20 @@ function NewSupply() {
                     style={{
                       width: '100%',
                     }}
-                    placeholder="select one country"
-                    defaultValue={['china']}
-                    onChange={handleChange}
+                    placeholder="Select room types"
+                    // defaultValue={Object.entries(hotelData.roomType).map((value) => value[0])}
+                    onChange={handleChangeRoomType}
                     optionLabelProp="label"
                   >
-                    <Option value="china" label="China">
-                      <div className="demo-option-label-item">
-                        <span aria-label="China">
-                          🇨🇳
-                        </span>
-                        China (中国)
-                      </div>
-                    </Option>
+                    {Object.entries(hotelData.roomType).map((key, index) => (
+                      <Option value={key[0]} key={index} label={key[0]}>
+                        <div className="demo-option-label-item">
+                          <span aria-label={key[0]}>
+                            {key[0]}
+                          </span>
+                        </div>
+                      </Option>
+                    ))}
                   </Select>
                 </Form.Item>
                 <Form.Item label="Room Features" >
@@ -250,19 +359,20 @@ function NewSupply() {
                     style={{
                       width: '100%',
                     }}
-                    placeholder="select one country"
-                    defaultValue={['china']}
-                    onChange={handleChange}
+                    placeholder="select room feature"
+                    // defaultValue={['hotel']}
+                    onChange={handleChangeRoomFeatures}
                     optionLabelProp="label"
                   >
-                    <Option value="china" label="China">
-                      <div className="demo-option-label-item">
-                        <span aria-label="China">
-                          🇨🇳
-                        </span>
-                        China (中国)
-                      </div>
-                    </Option>
+                    {Object.entries(hotelData.roomFeatures).map((key, index) => (
+                      <Option value={key[0]} key={index} label={key[0]}>
+                        <div className="demo-option-label-item">
+                          <span aria-label={key[0]}>
+                            {key[0]}
+                          </span>
+                        </div>
+                      </Option>
+                    ))}
                   </Select>
                 </Form.Item>
                 <Form.Item label="Property" >
@@ -272,26 +382,29 @@ function NewSupply() {
                       width: '100%',
                     }}
                     placeholder="select one country"
-                    defaultValue={['china']}
-                    onChange={handleChange}
+                    // defaultValue={['hotel']}
+                    onChange={handleChangeProperty}
                     optionLabelProp="label"
                   >
-                    <Option value="china" label="China">
-                      <div className="demo-option-label-item">
-                        <span aria-label="China">
-                          🇨🇳
-                        </span>
-                        China (中国)
-                      </div>
-                    </Option>
+                    {Object.entries(hotelData.property).map((key, index) => (
+                      <Option value={key[0]} key={index} label={key[0]}>
+                        <div className="demo-option-label-item">
+                          <span aria-label={key[0]}>
+                            {key[0]}
+                          </span>
+                        </div>
+                      </Option>
+                    ))}
                   </Select>
                 </Form.Item>
-                {/* <Form.Item label="Upload" valuePropName="fileList">
+                {/* <Form.Item label="Upload">
                   <Upload listType="picture-card" 
                   // fileList= {hotelData.image}
+
                   onChange={(e) => console.log(e.file.thumbUrl)}
                   
-                  // onChange={(e) => {setNewHotel({...hotelData, image: e.fileList[1].thumbUrl})}}
+                  
+                  // onChange={(e) => {setNewHotel({...newHotel, image: e.file.thumbUrl })}}
                   >
                     <div>
                       <PlusOutlined />
@@ -305,17 +418,22 @@ function NewSupply() {
                     </div>
                   </Upload>
                 </Form.Item> */}
-                {/* <Form.Item label="Upload">
-                  <FileBase64 accept = "image/*"
-                  multiple ={true}
-                  type = "file" >
+                {newHotel.image !== "" ? <img className={cx("img-Hotel")} alt="sa" src={newHotel.image}></img> : null}
+                <Form.Item label="Upload">
+                  <FileBase64
+                    multiple={false}
+                    type="file"
+                    onDone={({ base64 }) => setNewHotel({ ...newHotel, image: base64 })}
+                  // onDone={({base64}) => {console.log(base64)}}
+                  >
 
                   </FileBase64>
-                </Form.Item> */}
+                </Form.Item>
                 <Form.Item label="Button">
                   <Button onClick={handleSubmit}>Button</Button>
                 </Form.Item>
               </Form>
+              {/* {newHotel.image !== "" ? <img alt="sa" src={newHotel.image}></img> : null} */}
             </>
             {/* </MContext.Consumer> */}
           </div> :
