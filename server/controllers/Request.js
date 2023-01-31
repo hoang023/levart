@@ -113,3 +113,16 @@ export const updateRequest = async (req, res, next) => {
     next()
   }
 }
+export const deleteRequest = async (req,res) => {
+  try{
+    const {id} = req.params
+    await RequestModel.findByIdAndRemove(id)
+    res.status(200).json (
+      {
+        message: "Delete sucessfull"
+      }
+    )
+  } catch(err) {
+    res.status(500).json({ error: err })
+  }
+}
