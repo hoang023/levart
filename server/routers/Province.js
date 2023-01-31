@@ -6,7 +6,7 @@ const router = express.Router();
 
 router.get("/", getProvinces);
 router.post("/create-province",createProvince)
-router.post("/delete/:id", deleteProvince)
+router.delete("/delete/:id", deleteProvince)
 router.patch("/update/:id", updateProvice)
 
 export default router;
