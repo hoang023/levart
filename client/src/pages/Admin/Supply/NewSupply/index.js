@@ -1,51 +1,40 @@
 import React, { Fragment, useContext, useEffect, useState } from "react";
 import classNames from "classnames/bind";
 import styles from "./NewSupply.module.scss";
-import { shallowEqual, useDispatch, useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { hotelsState$, placesState$, provincesState$ } from "@/redux/selectors";
 import { Navigate } from "react-router-dom";
 import { AuthContext } from "@/contexts/AuthContext";
-import { Skeleton } from "antd";
-import { PlusOutlined } from '@ant-design/icons';
-import *as actions from "../../../../redux/actions"
+import { message, Skeleton } from "antd";
+import *as actions from "../../../../redux/actions";
+import InputImage from "@/components/General/InputImage";
 import FileBase64 from 'react-file-base64'
 import {
   Form,
   Input,
-  Button,
-  Radio,
   Select,
   Cascader,
   DatePicker,
-  InputNumber,
-  TreeSelect,
-  Switch,
-  Checkbox,
-  Upload,
 } from 'antd';
-import { property } from "@/components/General/IconText/Data";
-import { BsCurrencyEuro } from "react-icons/bs";
+import Button from "@/components/General/Button/Button";
+
+
 
 const cx = classNames.bind(styles);
 
 function NewSupply() {
   const {
-    logoutUser,
-    authState: { authLoading, isAuthenticated, user, profile },
+    authState: { authLoading, isAuthenticated, user },
   } = useContext(AuthContext);
 
   const dispatch = useDispatch();
   const hotel = useSelector(hotelsState$);
-  console.log("hotelllll", hotel
-  )
+  console.log("hotelllll", hotel)
   const provinces = useSelector(provincesState$);
   // console.log(provinces)
   const places = useSelector(placesState$);
   // console.log(places)
 
-  const handleAddSupply = () => {
-
-  }
   const { RangePicker } = DatePicker;
   const { TextArea } = Input;
   const [componentDisabled, setComponentDisabled] = useState(true);
@@ -55,16 +44,16 @@ function NewSupply() {
   let body;
 
   const { Option } = Select;
-  const handleChange = (value) => {
-    let temp = {
-
-    }
-  };
 
 
   const handleSubmit = () => {
-    // console.log("hotel daata", newHotel)
     dispatch(actions.createHotels.createHotelsRequest(newHotel));
+    message.success("Tạo thành công")
+    setNewHotel(hotelData)
+  }
+
+  const handleCancel = () => {
+    setNewHotel(hotelData)
   }
 
   let hotelData = {
@@ -197,6 +186,10 @@ function NewSupply() {
     return property;
   };
 
+  const handleInputState = (name, value) => {
+		setNewHotel((prev) => ({ ...prev, [name]: value }));
+	};
+
   if (authLoading) {
     body = (
       <Skeleton
@@ -226,6 +219,7 @@ function NewSupply() {
           <div className={cx("wrapper")}>
             <>
               <Form
+                style={{ padding: '20px 20px' }}
                 labelCol={{
                   span: 4,
                 }}
@@ -254,7 +248,7 @@ function NewSupply() {
                   <Cascader
 
                     onChange={(e) => {
-                      setNewHotel({...hotelData, placeID: e[1]})
+                      setNewHotel({ ...newHotel, placeID: e[1] })
                       console.log(e)
                     }}
                     // options={[
@@ -419,18 +413,27 @@ function NewSupply() {
                   </Upload>
                 </Form.Item> */}
                 {newHotel.image !== "" ? <img className={cx("img-Hotel")} alt="sa" src={newHotel.image}></img> : null}
-                <Form.Item label="Upload">
-                  <FileBase64
+                <Form.Item >
+                  {/* <FileBase64
                     multiple={false}
                     type="file"
                     onDone={({ base64 }) => setNewHotel({ ...newHotel, image: base64 })}
                   // onDone={({base64}) => {console.log(base64)}}
                   >
 
-                  </FileBase64>
+                  </FileBase64> */}
+          <InputImage
+          					name="image"
+                    label="Choose Image"
+                    handleInputState={handleInputState}
+                    type="image"
+                    value={newHotel.image}>
+          
+          </InputImage>
                 </Form.Item>
-                <Form.Item label="Button">
-                  <Button onClick={handleSubmit}>Button</Button>
+                <Form.Item style={{ margin: '40px 0px 0px 100px' }} >
+                  <Button primary medium onClick={handleSubmit} to="/Supply">Create</Button>
+                  <Button style={{ color: '#0DCB78' }} text to="/Supply">Cancel</Button>
                 </Form.Item>
               </Form>
               {/* {newHotel.image !== "" ? <img alt="sa" src={newHotel.image}></img> : null} */}

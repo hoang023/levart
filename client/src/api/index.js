@@ -23,11 +23,16 @@ export const setAuthToken = (token) => {
   }
 };
 
+
+
 export const fetchPosts = () => axios.get(`${URL}/posts`);
 // export const createUser = (payload) => axios.post(`${URL}/Users`, payload);
 // export const updateUser = (payload) => axios.patch(`${URL}/Users/${payload._id}`, payload);
 
 export const fetchProfile = () => axios.get(`${URL}/profile`);
+
+export const fetchUser = () => axios.get(`${URL}/user`);
+export const createUsers = (payload) => axios.post(`${URL}/user/register`, payload);
 
 export const fetchProvince = () => axios.get(`${URL}/province`);
 

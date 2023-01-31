@@ -21,5 +21,3 @@ const schema = new mongoose.Schema (
 }
 )
 export const SupplierModel = mongoose.model("Supplier", schema);
-
-//test

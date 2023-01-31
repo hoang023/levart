@@ -127,18 +127,13 @@ const schema = new mongoose.Schema(
       ref: "Place",
     },
     supplierID: {
-      type:  Schema.Types.ObjectId,
+      type: Schema.Types.ObjectId,
       ref: "Supplier"
     },
-
     path: {
       type: String,
       default: "Hotel",
     },
-    supplierID: {
-      type:  Schema.Types.ObjectId,
-      ref: "Supplier",
-    }
   },
 );
 

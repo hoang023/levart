@@ -67,3 +67,67 @@
 .bottom-content{
   margin-top: 4px;
 }
+
+.start-rate{
+  display: flex;
+  align-items: center;
+  justify-content: space-between; 
+}
+.container {
+  margin-top: 24px;
+  margin-bottom: 20px;
+  display: flex;
+  background-color: rgb(200, 255, 186);
+  padding: 20px;
+  border-radius: 10px;
+  justify-content: space-around;
+  .title {
+      font-size: 1.2em;
+      font-weight: bold;
+  }
+  .location {
+      .location-content {
+          border: 1px solid 	#008080;
+          height: 40px;
+          border-radius: 20px;
+          .icon-search {
+              padding-left: 5px;
+              color: #008080;
+               vertical-align: middle;
+             
+          }
+      }
+  }
+  .date {
+      border: 1px solid #008080;
+      
+  }
+  .roomType {
+      display: flex;
+      flex-direction: column;
+      width: 20%;
+  }
+
+ 
+
+}
+
+.check-Out{
+  width: 20%;
+}
+.check-In{
+  width: 20%;
+}
+
+
+.location-content input {
+ padding-left: 5px;
+ vertical-align: middle;
+ width: 400px;
+
+}
+.roomType select {
+  border: 1px solid 	#008080;
+  border-radius: 20px;
+  height: 40px;
+}

@@ -1,14 +1,14 @@
 import { hotelsState$, requestsState$ } from "@/redux/selectors";
-import classNames from "classnames"
+import classNames from "classnames/bind";
 import { CgColorBucket } from "react-icons/cg";
 import { useDispatch, useSelector } from "react-redux";
 import { Navigate, Route, useParams } from "react-router-dom";
-import styles from "./RequestDetail.module.scss";
 import Button from "@/components/General/Button/Button";
 import React, { useContext, useState } from "react";
 import *as actions from "../../../redux/actions";
 import { message } from "antd";
 import { AuthContext } from "@/contexts/AuthContext";
+import styles from "./RequestDetail.module.scss";
 
 const cx = classNames.bind(styles)
 
@@ -99,8 +99,8 @@ function RequestDetail() {
                     <td className={cx("tb-data")}>{data.ProfileID.lastName + " " + data.ProfileID.firstName}</td>
                 </tr>
                 <tr>
-                    <th className={cx("tb-head")}>Request date</th>
-                    <td className={cx("tb-data")}>Nguyeenx Huy Hoang</td>
+                    <th className={cx("tb-head")}>Email</th>
+                    <td className={cx("tb-data")}>{data.ProfileID.UserID.email}</td>
                 </tr>
                 <tr className={cx("tb-row")}>
                     <th className={cx("tb-head")}>Mã khách sạn</th>
@@ -123,15 +123,15 @@ function RequestDetail() {
                     <td className={cx("tb-data")}>{data.noticeTitle}</td>
                 </tr>
                 <tr>
-                    <th className={cx("tb-head")}>Ghi chú</th>
+                    <th className={cx("tb-head")}>Trạng thái</th>
                     <td className={cx("tb-data")}>{data.statusRequest}</td>
                 </tr>
-                <tr>
-                    <Button primary medium onClick={handleApprove}>Duyệt</Button>
+                   
+            </table>
+            <Button primary medium onClick={handleApprove}>Duyệt</Button>
                     <Button medium onClick={handleCancelRequest}>Từ chối</Button>
-                    <Button medium to={"/AdminBookingDetail"}>Hủy</Button>
-                </tr>
-            </table></div>
+                    <Button medium text to={"/AdminBookingDetail"}>Hủy</Button>
+            </div>
 
     )
 }

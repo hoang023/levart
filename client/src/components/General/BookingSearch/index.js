@@ -63,10 +63,11 @@ function BookingSearch() {
                     <option value="Single Room">Single Room</option>
                 </Select>
             </div>
-            <div>           
-                <Button primary to ={`/Filter_Province_Hotel_/${holder}`}>
-                <span>Search</span>
-            </Button></div>
+            <div style={{textAlign: "center"}}>           
+                <Button style = {{width: '35%', marginTop: '20px', }} primary  ={`/Filter_Province_Hotel_/${holder}`}>
+                Search
+            </Button>
+            </div>
         </div>
     )
 }

@@ -12,6 +12,8 @@ import AdminDashBoard from '@/pages/Admin/Dashboard';
 import RequestDetail from '@/pages/Admin/RequestDetail';
 import Supply from '@/pages/Admin/Supply';
 import NewSupply from '@/pages/Admin/Supply/NewSupply';
+import Account from '@/pages/Admin/Account';
+import NewAccount from '@/pages/Admin/Account/NewAccount';
 //Public Routes
 const publishRoutes = [
     {path: "/", component: Home},
@@ -37,7 +39,9 @@ const privateRoutes = [
     {path: "/AdminDashBoard", component: AdminDashBoard, layout: AdminLayout},
     {path: "/RequestDetail/:_id", component: RequestDetail, layout: AdminLayout},
     {path: "/Supply", component: Supply, layout: AdminLayout},    
-    {path: "/NewSupply", component: NewSupply, layout: AdminLayout},          
+    {path: "/NewSupply", component: NewSupply, layout: AdminLayout},   
+    {path: "/Account", component: Account, layout: AdminLayout},
+    {path: "/NewAccount", component: NewAccount, layout: AdminLayout},      
 ];
 
 export { publishRoutes, privateRoutes };

@@ -46,6 +46,10 @@ export const INIT_STATE = {
     isLoading: false,
     data: null,
   },
+  User:{
+    isLoading: false,
+    data: [],
+  },
   Request:{
     isLoading: false,
     data: [],

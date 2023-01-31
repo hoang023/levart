@@ -13,7 +13,7 @@ import MyTrip from "./MyTrip";
 import Request from "./Request"
 import ChooseCollectionModal from "./ChooseCollectionModal";
 import CreateCollectionModal from "./CreateCollectionModal";
-
+import User from "./User"
 
 export default combineReducers({
   posts,
@@ -29,4 +29,5 @@ export default combineReducers({
   ChooseCollectionModal,
   CreateCollectionModal,
   Request,
+  User,
 });

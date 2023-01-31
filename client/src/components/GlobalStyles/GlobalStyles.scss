@@ -35,6 +35,10 @@ input,
     border: none;
 }
 
+.ant-form input[type=file] {
+  display: none;
+}
+
 a[href] {
   color: var(--text-color);
   text-decoration: none;

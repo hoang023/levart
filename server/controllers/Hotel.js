@@ -33,7 +33,9 @@ export const getHotels = async (req, res) => {
           path: "provinceID",
         }
       })
-
+      // .populate({
+      //   path: "supplierID",
+      // })
       .exec()
       .then((hotels) => {
         res.status(200).json(hotels);
@@ -54,9 +56,9 @@ export const createHotel = async(req,res) => {
           path: "provinceID"
         }
       })
-      .populate({
-        path: "supplierID",
-      })
+      // .populate({
+      //   path: "supplierID",
+      // })
       .exec()
       .then((hotel) => {
         res.status(200).json(hotel)

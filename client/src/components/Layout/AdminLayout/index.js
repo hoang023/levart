@@ -19,22 +19,7 @@ import {
 import { Breadcrumb, Layout, Menu } from 'antd';
 import { Link } from "react-router-dom";
 const { Content, Sider } = Layout;
-function getItem(label, key, icon, children, to) {
-    return {
-        key,
-        icon,
-        children,
-        label,
-        to,
-    };
-}
-const items = [
-    getItem('Dash board', '1',<Link to="/AdminDashBoard"><PieChartOutlined /></Link>),
-    getItem('Request', '2', <Link to="/AdminBookingDetail"><DesktopOutlined /></Link>),
-    getItem('User', 'sub1',<Link to="/AdminBookingDetail"><UserOutlined /></Link>),
-    getItem('Team', 'sub2', <TeamOutlined />, [getItem('Team 1', '6'), getItem('Team 2', '8')]),
-    getItem('Service', '9',  <Link to="/Supply"><AppstoreAddOutlined /></Link>),
-];
+
 const cx = classNames.bind(styles);
 
 function AdminLayout({ children, backgroundColor = false, childrenOutSide }) {
@@ -54,8 +39,28 @@ function AdminLayout({ children, backgroundColor = false, childrenOutSide }) {
         dispatch(actions.getHotels.getHotelsRequest());
         dispatch(actions.getProfiles.getProfilesRequest());
         dispatch(actions.getRequests.getRequestsRequest());
+        dispatch(actions.getUsers.getUsersRequest());
+        dispatch(actions.getProfiles.getProfilesRequest());
     }, [dispatch]);
 
+    function getItem(label, key, icon, children, to) {
+        return {
+            key,
+            icon,
+            children,
+            label,
+            to,
+        };
+    }
+    
+    const items = [
+        getItem('Dash board', '1',<Link to="/AdminDashBoard"><PieChartOutlined /></Link>),
+        getItem('Request', '2', <Link to="/AdminBookingDetail"><DesktopOutlined /></Link>),
+    
+        ( user.role === "Admin"? getItem('User', 'sub1+',<Link to="/Account"><UserOutlined /></Link> ) : null),
+        // getItem('Team', 'sub2', <TeamOutlined />, [getItem('Team 1', '6'), getItem('Team 2', '8')]),
+        getItem('Service', '9',  <Link to="/Supply"><AppstoreAddOutlined /></Link>),
+    ];
     const classes = cx("wrapper", {
         backgroundColor,
     });

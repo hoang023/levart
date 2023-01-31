@@ -69,14 +69,17 @@ const AuthContextProvider = ({ children }) => {
   };
 
   // Register
-  const registerUser = async (userForm, profileForm) => {
+  const registerUser = async (userForm, profileForm, current) => {
     try {
       const response = await api.registerUser(userForm, profileForm);
 
       if (response.data.success)
-        localStorage.setItem("Auth_Token", response.data.accessToken);
-
-      await loadUser();
+      {
+        if (localStorage.Auth_Token === null){
+          localStorage.setItem("Auth_Token", response.data.accessToken);
+        }
+        await loadUser();
+      }
       messageSuccess("Register successful!");
 
       return response.data;

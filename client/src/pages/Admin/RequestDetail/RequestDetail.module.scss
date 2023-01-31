@@ -1,6 +1,8 @@
 .wrapper{
     background-color: #fff;
+    padding: 12px 12px 12px 100px;
     height: 100%;
+    width: 100%;
 }
 .tb-row{
     padding: 8px;
@@ -11,5 +13,8 @@
 }
 .tb-data{
     width: 70%;
-
+    margin-left: 40px;
+}   
+.table{
+    margin-bottom: 40px;
 }

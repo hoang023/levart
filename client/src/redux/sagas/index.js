@@ -52,14 +52,42 @@ function* fetchHotelSaga(action) {
   }
 }
 
+
+function* fetchUserSaga(action) {
+  try {
+    const Users = yield call(api.fetchUser);
+
+    yield put(actions.getUsers.getUsersSuccess(Users.data));
+  } catch (error) {
+    yield put(actions.getUsers.getUsersFailure(error));
+  }
+}
 function* createHotelSaga(action) {
   try {
     const hotel = yield call(api.createHotels, action.payload);
+    // console.log(hotel.data)
     yield put(actions.createHotels.createHotelsSuccess(hotel.data));
   } catch (error) {
     yield put(actions.createHotels.createHotelsFailure(error.response.data));
   }
 }
+function* createUserSaga(action) {
+  try {
+    const user = yield call(api.createUsers, action.payload);
+    yield put(actions.createUsers.createUsersSuccess(user.data));
+  } catch (error) {
+    yield put(actions.createUsers.createUsersFailure(error.response.data));
+  }
+}
+// function* updateUserSaga(action) {
+//   try {
+//     const user = yield call(api.updateUser, action.payload);
+
+//     yield put(actions.updateUsers.updateUsersSuccess(user.data));
+//   } catch (error) {
+//     yield put(actions.updateUsers.updateUsersFailure(error.response.data));
+//   }
+// }
 
 function* fetchFoodAndDrinkSaga(action) {
   try {
@@ -144,6 +172,10 @@ function* mySaga() {
   yield takeLatest(actions.getProvinces.getProvincesRequest, fetchProvinceSaga);
 
   yield takeLatest(actions.getPlaces.getPlacesRequest, fetchPlaceSaga);
+
+  yield takeLatest(actions.getUsers.getUsersRequest, fetchUserSaga);
+  yield takeLatest(actions.getUsers.getUsersRequest, createUserSaga)
+  // yield takeLatest(actions.updateUsers.updateUsersRequest, updateUserSaga)
 
   yield takeLatest(actions.getHotels.getHotelsRequest, fetchHotelSaga);
   yield takeLatest(actions.createHotels.createHotelsRequest, createHotelSaga);

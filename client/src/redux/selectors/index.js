@@ -21,6 +21,9 @@ export const placesState$ =(state) => state.Place.data;
 //Hotel
 export const hotelsState$ =(state) => state.Hotel.data;
 
+//User
+export const usersState$ =(state) => state.User.data;
+
 //FoodAndDrink
 export const foodAndDrinksState$ =(state) => state.FoodAndDrink.data;
 

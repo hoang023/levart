@@ -1,6 +1,6 @@
 import classNames from "classnames/bind";
 import React, { useState } from "react";
-import { Rate } from "antd";
+import { DatePicker, Rate, Select } from "antd";
 import { MdPlace } from "react-icons/md";
 import { FiPhone } from "react-icons/fi";
 import { AiOutlineGlobal } from "react-icons/ai";
@@ -18,6 +18,7 @@ function TopContent({ data, display }) {
   let { name } = useParams();
   let title;
 
+
   if (display[0] === "Filter") {
     if (display[2] === "Attraction") {
       title = <span>Things to Do in {name}</span>;
@@ -28,9 +29,9 @@ function TopContent({ data, display }) {
     }
   } else if (display[0] === "Info") {
     if (display[1] !== "Province" && display[1] !== "Place") {
-      
+
       title = <span>{data.name}</span>;
-     
+
     } else {
       title = (
         <span>
@@ -45,9 +46,11 @@ function TopContent({ data, display }) {
         </span>
       );
     }
-     
-     
-    
+
+
+  }
+  const handleshow = () => {
+
   }
 
   const RateStart = () => {
@@ -58,7 +61,7 @@ function TopContent({ data, display }) {
 
   return (
     <div className={classes}>
-     
+
       <div className={cx("inner")}>
         <div className={cx("top-content")}>
           {title}
@@ -73,23 +76,27 @@ function TopContent({ data, display }) {
           ) : null}
         </div>
         {display[0] !== "Filter" &&
-        display[1] !== "Province" &&
-        display[1] !== "Place" ? (
+          display[1] !== "Province" &&
+          display[1] !== "Place" ? (
           <div>
             {console.log("dsa", display[1])}
-            {display[1] === "Hotel" ? 
-            (
-              <Button medium primary >
-              <span>BOOK NOW</span>
-            </Button>
-            )
-             :
-             null
-            }
+
             <div className={cx("start-rate")}>
-           
-              <RateStart />
-              <span className="ant-rate-text">( {data.evaluatePoint} )</span>
+
+              <div>
+                <RateStart />
+                <span className="ant-rate-text">( {data.evaluatePoint} )</span>
+              </div>
+
+              {display[1] === "Hotel" ?
+                (
+                  <Button medium primary onClick={handleshow}  >
+                    <span>BOOK NOW</span>
+                  </Button>
+                )
+                :
+                null
+              }
             </div>
             <div className={cx("bottom-content")}>
               <div className={cx("icon-content")}>
@@ -107,13 +114,38 @@ function TopContent({ data, display }) {
                 </a>
               </div>
             </div>
+
+
+            {display[1] === "Hotel" ?
+                (
+                  <div className={cx("container")}>
+                  <div className={cx("check-In")}>
+                    <label>Check In</label>
+                    <DatePicker className={cx("date")}></DatePicker>
+                  </div>
+                  <div className={cx("check-Out")}>
+                    <label>Check Out</label>
+                    <DatePicker className={cx("date")}></DatePicker>
+                  </div>
+                  <div className={cx("roomType")}>
+                    <label>Adobe</label>
+                    <Select>
+                      <option value="Single Room">Single Room</option>
+                    </Select>
+                  </div>
+                </div>
+                )
+                :
+                null
+              }
+
           </div>
         ) : (
           <div style={{ marginBottom: 24 }} />
         )}
       </div>
     </div>
-  );
+  );  
 }
 
 export default TopContent;

@@ -28,6 +28,22 @@ export const getProfiles = createActions({
   getProfilesFailure: (err) => err,
 });
 
+export const getUsers = createActions({
+  getUsersRequest: undefined,
+  getUsersSuccess: (payload) => payload,
+  getUsersFailure: (err) => err,
+});
+export const createUsers = createActions({
+  createUsersRequest: (payload)=>payload,
+  createUsersSuccess: (payload)=>payload,
+  createUsersFailure: (err)=>err,
+})
+export const updateUsers = createActions({
+  updateUsersRequest: undefined,
+  updateUsersSuccess: (payload) => payload,
+  updateUsersFailure: (err) => err,
+});
+
 export const getProvinces = createActions({
   getProvincesRequest: undefined,
   getProvincesSuccess: (payload) => payload,

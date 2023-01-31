@@ -37,8 +37,6 @@ function AdminBookingDetail() {
     return temp;
   })
 
-  const requestNotApproved = requests.filter(temp => temp.statusRequest === "Not Approved Yet")
-
   console.log(requestData)
 
   const columns2 = [
@@ -195,6 +193,8 @@ function AdminBookingDetail() {
     //       : <Home/>}
     //   </div>
     // );
+    const requestNotApproved = requests.filter(temp => temp.statusRequest === "Not Approved Yet")
+
     body = (
       <div className={cx("wrapper")}>
       <div className={cx("top-content")}>
