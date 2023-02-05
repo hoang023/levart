@@ -133,3 +133,34 @@ export const createUsers = async (req, res) => {
     res.status(500).json({ error: err });
   }
 };
+export const deleteUsers = async (req,res) => {
+  try {
+    const {id} = req.params
+     await UserModel.findByIdAndDelete(id)
+     await ProfileModel.findOneAndRemove({UserID:id})
+      res.status(200).json(
+      {
+        message: "Delete sucessfull"
+      }
+    )
+  }
+  catch (err) {
+    res.status(500).json({ error: err })
+  }
+}
+export const updateUsers = async (req,res) => {
+  try {
+    const userData = req.body
+    await UserModel.findOneAndUpdate(
+      {_id: userData._id},
+      userData,
+    )
+      res.status(200).json (
+        {
+            message: "Update sucessfull"
+        }
+    )
+  }catch (err) {
+    res.status(500).json({ error: err })
+  }
+}

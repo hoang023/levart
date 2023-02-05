@@ -170,3 +170,36 @@ export const createPlace = async (req, res) => {
 //   // }
 // );
 // province.save();
+export const deletePlace = async(req,res) => {
+  try{
+    const {id} = req.params
+    await PlaceModel.findByIdAndRemove(id)
+    res.status(200).json (
+      {
+        message: "Delete sucessfull"
+      }
+    )
+  } catch(err) {
+    res.status(500).json({ error: err })
+  }
+}
+export const updatePalace = async (req,res) => {
+  try {
+    const palaceData = req.body
+    await PlaceModel.findOneAndUpdate(
+      {_id: palaceData._id},
+      palaceData,
+      {new:true}
+    )
+    .populate({
+      path: "provinceID"
+    })
+    .exec()
+    .then((place)=>{
+      res.status(200).json(place)
+    })
+  }
+  catch (err) {
+    res.status(500).json({ error: err })
+  }
+}

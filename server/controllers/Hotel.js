@@ -225,3 +225,42 @@ export const createHotel = async(req,res) => {
 // );
 
 // post.save();
+export const deleteHotel = async (req,res) => {
+  try {
+    const {id} = req.params
+    await HotelModel.findByIdAndRemove(id)
+    res.status(200).json(
+      {
+        message: "Delete successfull"
+      }
+    )
+  } catch (err) {
+    res.status(500).json({ error: err })
+  }
+}
+export const updateHotel = async (req,res) => {
+  try {
+    const hotelData = req.body
+    await HotelModel.findOneAndUpdate(
+      {_id: hotelData._id},
+      hotelData,
+      {new: true}
+    )
+    .populate({
+      path: "placeID",
+      populate: {
+        path: "provinceID"
+      }
+    })
+    .populate({
+      path: "supplierID",
+    })
+    .exec()
+    .then((hotel) => {
+      res.status(200).json(hotel)
+    });
+  } catch (err) {
+    res.status(500).json({ error: err })
+  }
+}
+
