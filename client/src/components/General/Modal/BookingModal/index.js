@@ -17,7 +17,7 @@ import Button from "@/components/General/Button/Button";
 import { useParams } from "react-router-dom";
 
 const cx = classNames.bind(styles)
-function BookingModal ({ dataa, data1, onChangeCheckIn, onChangeCheckOut}) {
+function BookingModal ({ dataa, onChangeCheckIn, onChangeCheckOut}) {
   const {
     authState: { authLoading, isAuthenticated, profile },
   } = useContext(AuthContext);
@@ -28,8 +28,12 @@ function BookingModal ({ dataa, data1, onChangeCheckIn, onChangeCheckOut}) {
  const requests = useSelector(requestsState$)
  const hotels = useSelector(hotelsState$)
  const profiles = useSelector(profilesState$)
+  
+  let {name} = useParams()
 
-
+ const hotel = hotels.find(function (hotel) {
+  return hotel.name === name;
+})
  
   const [newBooking, setNewBooking] = useState(dataa)
  
@@ -92,19 +96,19 @@ const footer = (
         }}
         >
           <Form.Item label="First Name">
-            <Input value={data1.firstName}   ></Input>
+            <Input value={profile.firstName}   ></Input>
           </Form.Item>
           <Form.Item label="Last Name">
-            <Input  value={data1.lastName} ></Input>
+            <Input  value={profile.lastName} ></Input>
           </Form.Item>
           <Form.Item label="Hotel's Name">
-            <Input value={data1.name}></Input>
+            <Input value={name}></Input>
           </Form.Item>
-          <Form.Item label="Check In">
-            <DatePicker format={"DD/MM/YYYY"} value={dataa.checkIn} onChange={onChangeCheckIn} ></DatePicker>
+          <Form.Item label="Check In"  >
+            <DatePicker  value={dataa.checkIn} onChange={onChangeCheckIn} ></DatePicker>
           </Form.Item>
-          <Form.Item label="Check Out">
-            <DatePicker format={"DD/MM/YYYY"} value={dataa.checkOut} onChange={onChangeCheckOut} ></DatePicker>
+          <Form.Item label="Check Out"  >
+            <DatePicker  value={dataa.checkOut} onChange={onChangeCheckOut} ></DatePicker>
           </Form.Item>
           <Form.Item label="Notice">
             <Input value={newBooking.noticeTitle} onChange={onChangeNotice}></Input>

@@ -23,28 +23,25 @@ function TopContent({ data, display }) {
   const {
     authState: { authLoading, isAuthenticated, profile },
   } = useContext(AuthContext);
-  let { name} = useParams();
+
+  let {name} = useParams()
+  
   const hotels = useSelector(hotelsState$)
-  const hotel = hotels.find(function (hotel) {
-    return hotel.name === name;
-  })
+ 
   let temp = {
     ProfileID: profile._id,
-    HotelID: hotel._id,
-    checkIn: moment(),
-    checkOut: moment(),
+    HotelID: "123",
+    checkIn: moment().format("YYYY MM DD"),
+    checkOut: moment().format("YYYY MM DD"),
     noticeTitle:"",
     statusRequest:"Refused"
   }
 
   const [searchData, setSearchData] = useState(
     temp)
-  let dataBooking = {
-    firstName: profile.firstName,
-    lastName: profile.lastName,
-    name: name,
-  }
-  console.log(name)
+ 
+  
+  
 
   const onChangeCheckIn = (e)=>{
     setSearchData({...searchData, checkIn:e})
@@ -138,7 +135,7 @@ function TopContent({ data, display }) {
                 :
                 null
               }
-              <BookingModal dataa={searchData} data1={dataBooking} onChangeCheckIn={onChangeCheckIn} onChangeCheckOut={onChangeCheckOut} ></BookingModal>
+              <BookingModal dataa={searchData}  onChangeCheckIn={onChangeCheckIn} onChangeCheckOut={onChangeCheckOut} ></BookingModal>
             </div>
             <div className={cx("bottom-content")}>
               <div className={cx("icon-content")}>
@@ -165,7 +162,7 @@ function TopContent({ data, display }) {
                     <label>Check In</label>
                     <DatePicker 
                       className={cx("date")}
-                      format={"DD/MM/YY"}
+                      //format={"DD/MM/YY"}
                       value={searchData.checkIn}
                       onChange={onChangeCheckIn}></DatePicker>
                   </div>
@@ -173,7 +170,7 @@ function TopContent({ data, display }) {
                     <label>Check Out</label>
                     <DatePicker
                       className={cx("date")}
-                      format={"DD/MM/YY"}
+                      //format={"DD/MM/YY"}
                       value={searchData.checkOut}
                       onChange={onChangeCheckOut}></DatePicker>
                   </div>
