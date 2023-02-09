@@ -6,6 +6,7 @@ import * as actions from "@/redux/actions";
 import { AuthContext } from "@/contexts/AuthContext";
 import { bookingModalState$, modalState$, requestsState$, hotelsState$, profilesState$ } from "@/redux/selectors";
 import {message, Modal, TimePicker} from "antd";
+import dayjs from 'dayjs'
 import {
   Form,
   Input,
@@ -15,47 +16,51 @@ import {
 } from 'antd';
 import Button from "@/components/General/Button/Button";
 import { useParams } from "react-router-dom";
+import moment from "moment";
 
 const cx = classNames.bind(styles)
-function BookingModal ({ dataa, onChangeCheckIn, onChangeCheckOut}) {
+function BookingModal ({ dataa, data1, handleTest , handleTest1}) {
   const {
     authState: { authLoading, isAuthenticated, profile },
   } = useContext(AuthContext);
  const {isShow, data} = useSelector(bookingModalState$)
 
- 
+ let {name} = useParams();
+ console.log("NAME" ,name)
  const dispatch = useDispatch()
- const requests = useSelector(requestsState$)
- const hotels = useSelector(hotelsState$)
- const profiles = useSelector(profilesState$)
-  
-  let {name} = useParams()
 
- const hotel = hotels.find(function (hotel) {
-  return hotel.name === name;
-})
- 
-  const [newBooking, setNewBooking] = useState(dataa)
- 
- 
- const onChangeNotice = (e) => {
-  setNewBooking({
-    ...newBooking,
-    noticeTitle: e.target.value
+  const hotel = useSelector(hotelsState$).find(function(hotel) {
+    return hotel.name === name;
   })
- }
+let bookData = {};
 
- 
+if(isAuthenticated) {
+  bookData = {
+    ProfileID: profile._id,
+    HotelID: hotel._id,
+    checkIn: dataa.checkIn,
+    checkOut: dataa.checkOut,
+    noticeTitle: "",
+  }
+}
   
+  const [newBooking, setNewBooking] = useState(bookData)
+  
+  useEffect( () => {
+    setNewBooking({...newBooking, checkIn: dataa.checkIn, checkOut: dataa.checkOut})
+  }, [dataa])
+ 
   
 console.log(newBooking)
  const handleBooking=() =>{
   dispatch(actions.createRequests.createRequestsRequest(newBooking))
+  setNewBooking(bookData)
   message.success("Tạo thành công")
  }
  
  const handleCancel = React.useCallback(() => {
   dispatch(actions.hideBookingModal())
+  setNewBooking(bookData)
 }, [dispatch]);
 
 const title = (
@@ -86,7 +91,7 @@ const footer = (
     >
       <div className={cx("wrapper")}>
         <>
-        <Form
+        {bookData.ProfileID  ? <Form
          style={{ padding: '20px 20px' }}
          labelCol={{
           span: 4,
@@ -104,16 +109,16 @@ const footer = (
           <Form.Item label="Hotel's Name">
             <Input value={name}></Input>
           </Form.Item>
-          <Form.Item label="Check In"  >
-            <DatePicker  value={dataa.checkIn} onChange={onChangeCheckIn} ></DatePicker>
+          <Form.Item label="Check In">
+            <DatePicker format={"DD/MM/YYYY"} value={dataa.checkIn} defaultValue={newBooking.checkIn} onChange={(e) => {handleTest(e)}} ></DatePicker>
           </Form.Item>
-          <Form.Item label="Check Out"  >
-            <DatePicker  value={dataa.checkOut} onChange={onChangeCheckOut} ></DatePicker>
+          <Form.Item label="Check Out">
+            <DatePicker format={"DD/MM/YYYY"} value={dataa.checkOut} defaultValue={newBooking.checkOut}  onChange={(e) => {handleTest1(e)}} ></DatePicker>
           </Form.Item>
           <Form.Item label="Notice">
-            <Input value={newBooking.noticeTitle} onChange={onChangeNotice}></Input>
+            <Input value={newBooking.noticeTitle} onChange={(e) => setNewBooking({...newBooking, noticeTitle: e.target.value})}></Input>
           </Form.Item>
-        </Form>
+        </Form> : <div>Loading</div>}
         </>
       </div>
    </Modal>

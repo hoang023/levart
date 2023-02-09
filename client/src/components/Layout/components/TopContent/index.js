@@ -1,5 +1,5 @@
 import classNames from "classnames/bind";
-import React, { useContext, useState } from "react";
+import React, { useCallback, useContext, useEffect, useState } from "react";
 import { DatePicker, Rate, Select } from "antd";
 import { MdPlace } from "react-icons/md";
 import { FiPhone } from "react-icons/fi";
@@ -16,44 +16,82 @@ import { AuthContext } from "@/contexts/AuthContext";
 import { useParams } from "react-router-dom";
 import BookingModal from "@/components/General/Modal/BookingModal";
 import moment from "moment";
+import dayjs from 'dayjs'
 const cx = classNames.bind(styles);
-
+const { RangePicker } = DatePicker;
 function TopContent({ data, display }) {
 
   const {
     authState: { authLoading, isAuthenticated, profile },
   } = useContext(AuthContext);
-
-  let {name} = useParams()
-  
+  let { name } = useParams();
   const hotels = useSelector(hotelsState$)
- 
-  let temp = {
-    ProfileID: profile._id,
-    HotelID: "123",
-    checkIn: moment().format("YYYY MM DD"),
-    checkOut: moment().format("YYYY MM DD"),
-    noticeTitle:"",
-    statusRequest:"Refused"
+  const hotel = hotels.find(function (hotel) {
+    return hotel.name === name;
+  })
+
+
+  const [searchData, setSearchData] = useState({
+    checkIn: moment(),
+    checkOut: moment(),
+  })
+
+  const handleChange = value => {
+    setSearchData(value);
+  };
+  const handleTest = (e) => {
+    setSearchData({...searchData, checkIn : e})
   }
 
-  const [searchData, setSearchData] = useState(
-    temp)
- 
-  
-  
+  const handleTest1 = (e) => {
+    setSearchData({...searchData, checkOut : e})
+  }
 
-  const onChangeCheckIn = (e)=>{
-    setSearchData({...searchData, checkIn:e})
-  }
-  const onChangeCheckOut = (e)=>{
-    setSearchData({...searchData, checkOut:e})
-  }
+  // const onChangeCheckIn = (e)=>{
+  //   if(e) {
+  //     console.log("fhdsuhsdufsk", e)
+  //     setSearchData({...searchData, checkIn: e})
+  //   }
+
+  // }
+  // const onChangeCheckOut = (e)=>{
+  //   setSearchData({...searchData, checkOut: e})
+  // }
+
+
+
+  // const [dates, setDates] = useState(null);
+  // const [value, setValue] = useState(null);
+  // const disabledDate = (current) => {
+  //   if (!dates) {
+  //     return false;
+  //   }
+  //   const tooLate = dates[0] && current.diff(dates[0], 'days') > 7;
+  //   const tooEarly = dates[1] && dates[1].diff(current, 'days') > 7;
+  //   return !!tooEarly || !!tooLate;
+  // };
+  // const onOpenChange = (open) => {
+  //   if (open) {
+  //     setDates([null, null]);
+  //   } else {
+  //     setDates(null);
+  //   }
+  // };
+
+  let holdingSearchData 
+
   const dispatch = useDispatch()
   const openBookingModal = React.useCallback(() => {
     dispatch(actions.showBookingModal());
   }, [dispatch]);
 
+  useEffect(() => {
+    console.log("sss", searchData)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    holdingSearchData = searchData;
+    setSearchData(searchData)
+    
+  }, [searchData])
 
   let title;
 
@@ -88,6 +126,9 @@ function TopContent({ data, display }) {
 
 
   }
+
+
+
   const handleshow = () => {
 
   }
@@ -117,7 +158,6 @@ function TopContent({ data, display }) {
           display[1] !== "Province" &&
           display[1] !== "Place" ? (
           <div>
-            {console.log("dsa", display[1])}
 
             <div className={cx("start-rate")}>
 
@@ -135,7 +175,8 @@ function TopContent({ data, display }) {
                 :
                 null
               }
-              <BookingModal dataa={searchData}  onChangeCheckIn={onChangeCheckIn} onChangeCheckOut={onChangeCheckOut} ></BookingModal>
+             <BookingModal handleTest={handleTest} handleTest1 = {handleTest1} dataa={searchData}  ></BookingModal>
+              
             </div>
             <div className={cx("bottom-content")}>
               <div className={cx("icon-content")}>
@@ -156,44 +197,61 @@ function TopContent({ data, display }) {
 
 
             {display[1] === "Hotel" ?
-                (
-                  <div className={cx("container")}>
+              (
+                <div className={cx("container")}>
+                  {/* <RangePicker
+                    value={dates || value}
+                    disabledDate={disabledDate}
+                    onCalendarChange={(val) => {
+                      console.log("calendat", val)
+                      setDates(val)}}
+                    onChange={(val) => {
+                      console.log("hdhdhd",val)
+                      setValue(val)
+                    }}
+                    onOpenChange={onOpenChange}
+                  /> */}
                   <div className={cx("check-In")}>
-                    <label>Check In</label>
-                    <DatePicker 
-                      className={cx("date")}
-                      //format={"DD/MM/YY"}
+                    <label>Check In </label>
+                    <DatePicker
                       value={searchData.checkIn}
-                      onChange={onChangeCheckIn}></DatePicker>
+                      className={cx("date")}
+                      defaultValue={searchData.checkIn}
+                      onChange={(e) => {
+                        console.log("qqqqqqqqqqqq", e)
+                        setSearchData({ ...searchData, checkIn: e })
+                      }}
+                    ></DatePicker>
                   </div>
                   <div className={cx("check-Out")}>
                     <label>Check Out</label>
                     <DatePicker
                       className={cx("date")}
-                      //format={"DD/MM/YY"}
-                      value={searchData.checkOut}
-                      onChange={onChangeCheckOut}></DatePicker>
+                      defaultValue={searchData.checkOut}
+                      onChange={(e) => {
+
+                        console.log("djjfdshfksdjhfjksdhfkjsdhf", e)
+                        setSearchData({ ...searchData, checkOut: e })
+                      }}></DatePicker>
                   </div>
                   <div className={cx("roomType")}>
                     <label>Adobe</label>
                     <Select >
                       <option value="Single Room">Single Room</option>
-                     
                     </Select>
                   </div>
                 </div>
-                )
-                :
-                null
-              }
-
+              )
+              :
+              null
+            }
           </div>
         ) : (
           <div style={{ marginBottom: 24 }} />
         )}
       </div>
     </div>
-  );  
+  );
 }
 
 export default TopContent;
