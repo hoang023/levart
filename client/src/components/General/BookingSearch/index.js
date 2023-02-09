@@ -49,22 +49,9 @@ function BookingSearch() {
                     ))}
                   </Select>
             </div>
-            <div className={cx("check-In")}>
-                <label>Check In</label>
-                <DatePicker className={cx("date")}></DatePicker>
-            </div>
-            <div className={cx("check-Out")}>
-                <label>Check Out</label>
-                <DatePicker className={cx("date")}></DatePicker>
-            </div>
-            <div className={cx("roomType")}>
-                <label>Adobe</label>
-                <Select>
-                    <option value="Single Room">Single Room</option>
-                </Select>
-            </div>
-            <div style={{textAlign: "center"}}>           
-                <Button style = {{width: '35%', marginTop: '20px', }} primary  ={`/Filter_Province_Hotel_/${holder}`}>
+            
+            <div style={{textAlign: "center", marginTop:'20px'}}>           
+                <Button style = {{width: '35%', marginTop: '20px', }} medium primary  to={`/Filter_Province_Hotel_/${holder}`}>
                 Search
             </Button>
             </div>

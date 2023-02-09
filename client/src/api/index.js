@@ -49,6 +49,7 @@ export const fetchAttraction = () => axios.get(`${URL}/attraction`);
 
 export const fetchRequest = () => axios.get(`${URL}/request`);
 export const updateRequest = (payload) => axios.patch(`${URL}/request/${payload._id}`, payload);
+export const createRequests = (payload)=> axios.post(`${URL}/request/create-request`,payload)
 
 export const fetchMyTrip = (payload) => axios.get(`${URL}/myTrip/${payload}`);
 export const createCollections = (payload) => axios.patch(`${URL}/myTrip/${payload.UserID}`, payload);

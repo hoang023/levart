@@ -1,21 +1,63 @@
 import classNames from "classnames/bind";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { DatePicker, Rate, Select } from "antd";
 import { MdPlace } from "react-icons/md";
 import { FiPhone } from "react-icons/fi";
 import { AiOutlineGlobal } from "react-icons/ai";
+
 import Button from "@/components/General/Button/Button"
-import { attractionsState$, provincesState$ } from "@/redux/selectors";
+import * as actions from "@/redux/actions";
+import { attractionsState$, hotelsState$, provincesState$ } from "@/redux/selectors";
 import { useDispatch, useSelector } from "react-redux";
 
 import styles from "./TopContent.module.scss";
 import IconButton from "@/components/General/IconButton";
-
+import { AuthContext } from "@/contexts/AuthContext";
 import { useParams } from "react-router-dom";
+import BookingModal from "@/components/General/Modal/BookingModal";
+import moment from "moment";
 const cx = classNames.bind(styles);
 
 function TopContent({ data, display }) {
-  let { name } = useParams();
+
+  const {
+    authState: { authLoading, isAuthenticated, profile },
+  } = useContext(AuthContext);
+  let { name} = useParams();
+  const hotels = useSelector(hotelsState$)
+  const hotel = hotels.find(function (hotel) {
+    return hotel.name === name;
+  })
+  let temp = {
+    ProfileID: profile._id,
+    HotelID: hotel._id,
+    checkIn: moment(),
+    checkOut: moment(),
+    noticeTitle:"",
+    statusRequest:"Refused"
+  }
+
+  const [searchData, setSearchData] = useState(
+    temp)
+  let dataBooking = {
+    firstName: profile.firstName,
+    lastName: profile.lastName,
+    name: name,
+  }
+  console.log(name)
+
+  const onChangeCheckIn = (e)=>{
+    setSearchData({...searchData, checkIn:e})
+  }
+  const onChangeCheckOut = (e)=>{
+    setSearchData({...searchData, checkOut:e})
+  }
+  const dispatch = useDispatch()
+  const openBookingModal = React.useCallback(() => {
+    dispatch(actions.showBookingModal());
+  }, [dispatch]);
+
+
   let title;
 
 
@@ -52,7 +94,6 @@ function TopContent({ data, display }) {
   const handleshow = () => {
 
   }
-
   const RateStart = () => {
     return <Rate disabled allowHalf defaultValue={data.evaluatePoint} />;
   };
@@ -90,13 +131,14 @@ function TopContent({ data, display }) {
 
               {display[1] === "Hotel" ?
                 (
-                  <Button medium primary onClick={handleshow}  >
+                  <Button medium primary onClick={openBookingModal}  >
                     <span>BOOK NOW</span>
                   </Button>
                 )
                 :
                 null
               }
+              <BookingModal dataa={searchData} data1={dataBooking} onChangeCheckIn={onChangeCheckIn} onChangeCheckOut={onChangeCheckOut} ></BookingModal>
             </div>
             <div className={cx("bottom-content")}>
               <div className={cx("icon-content")}>
@@ -121,16 +163,25 @@ function TopContent({ data, display }) {
                   <div className={cx("container")}>
                   <div className={cx("check-In")}>
                     <label>Check In</label>
-                    <DatePicker className={cx("date")}></DatePicker>
+                    <DatePicker 
+                      className={cx("date")}
+                      format={"DD/MM/YY"}
+                      value={searchData.checkIn}
+                      onChange={onChangeCheckIn}></DatePicker>
                   </div>
                   <div className={cx("check-Out")}>
                     <label>Check Out</label>
-                    <DatePicker className={cx("date")}></DatePicker>
+                    <DatePicker
+                      className={cx("date")}
+                      format={"DD/MM/YY"}
+                      value={searchData.checkOut}
+                      onChange={onChangeCheckOut}></DatePicker>
                   </div>
                   <div className={cx("roomType")}>
                     <label>Adobe</label>
-                    <Select>
+                    <Select >
                       <option value="Single Room">Single Room</option>
+                     
                     </Select>
                   </div>
                 </div>
