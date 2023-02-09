@@ -71,6 +71,23 @@ function* createHotelSaga(action) {
     yield put(actions.createHotels.createHotelsFailure(error.response.data));
   }
 }
+function* updateHotelSaga(action) {
+  try {
+    const hotel = yield call(api.updateHotel, action.payload);
+
+    yield put(actions.updateHotels.updateHotelsSuccess(hotel.data));
+  } catch (error) {
+    yield put(actions.updateHotels.updateHotelsFailure(error.response.data));
+  }
+}
+function* deleteHotelSaga(action) {
+  try {
+    const Hotels = yield call(api.deleteHotels, action.payload);
+    yield put(actions.deleteHotels.deleteHotelsSuccess(Hotels.data._id));
+  } catch (error) {
+    yield put(actions.deleteHotels.deleteHotelsFailure(error.response.data));
+  }
+}
 function* createUserSaga(action) {
   try {
     const user = yield call(api.createUsers, action.payload);
@@ -179,6 +196,8 @@ function* mySaga() {
 
   yield takeLatest(actions.getHotels.getHotelsRequest, fetchHotelSaga);
   yield takeLatest(actions.createHotels.createHotelsRequest, createHotelSaga);
+  yield takeLatest(actions.updateHotels.updateHotelsRequest, updateHotelSaga);
+  yield takeLatest(actions.deleteHotels.deleteHotelsRequest, deleteHotelSaga);
 
   yield takeLatest(actions.getFoodAndDrinks.getFoodAndDrinksRequest, fetchFoodAndDrinkSaga);
 

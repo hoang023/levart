@@ -1,6 +1,5 @@
 import { INIT_STATE } from "../../constant";
-import { getHotels, getType, createHotels } from "../actions";
-
+import { getHotels, getType, createHotels, updateHotels, deleteHotels } from "../actions";
 export default function hotelReducers(state = INIT_STATE.Hotel, action) {
   switch (action.type) {
     case getType(getHotels.getHotelsRequest):
@@ -30,7 +29,39 @@ export default function hotelReducers(state = INIT_STATE.Hotel, action) {
           isLoading: true,
           data: [...state.data],
         };
+        case getType(updateHotels.updateHotelsSuccess):
 
+        // messageSuccess("Chỉnh sửa thành công" );
+        return {
+            ...state,
+            data: state.data.map((Hotels) =>
+                Hotels._id === action.payload._id ? action.payload : Hotels
+            ),
+        };
+    case getType(updateHotels.updateHotelsFailure):
+        // messageError(action.payload);
+
+        return {
+            ...state,
+            isLoading: true,
+            data: [...state.data],
+        };
+        case getType(deleteHotels.deleteHotelsSuccess):
+          // messageSuccess("Xóa thành công");
+          return {
+            ...state,
+            data: state.data.filter(
+              (Hotels) => Hotels._id !== action.payload
+            ),
+          };
+        case getType(deleteHotels.deleteHotelsFailure):
+          
+          // messageError(action.payload);
+          return {
+            ...state,
+            isLoading: true,
+            data: [...state.data],
+          };
     default:
       return state;
   }

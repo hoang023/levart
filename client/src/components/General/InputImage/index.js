@@ -8,10 +8,14 @@ const InputImage = ({ name, label, value, type, handleInputState, ...rest }) => 
 	const inputRef = useRef();
 	const [progress, setProgress] = useState(0);
 	const [progressShow, setProgressShow] = useState(false);
-
+	const [images, setImage] = useState([]);
+	let imageList = []
+	console.log( "nameeeeeeeeeee: ",name)
+	console.log( "valueeeee: ",value)
 	const handleUpload = () => {
 		setProgressShow(true);
 		const fileName = new Date().getTime() + value.name;
+		console.log("Filename",fileName)
 		const storageRef = ref(
 			storage,
 			type === "audio" ? `/audio/${fileName}` : `/images/${fileName}`
@@ -30,6 +34,7 @@ const InputImage = ({ name, label, value, type, handleInputState, ...rest }) => 
 			},
 			() => {
 				getDownloadURL(uploadTask.snapshot.ref).then((url) => {
+					console.log( "hehehehehe", images);
 					handleInputState(name, url);
 				});
 			}
@@ -44,7 +49,7 @@ const InputImage = ({ name, label, value, type, handleInputState, ...rest }) => 
 				onChange={(e) => handleInputState(name, e.currentTarget.files[0])}
 				// value={value}
 				className={styles.input}
-				{...rest}
+				// {...rest}
 			/>
 			<button
 				type="button"

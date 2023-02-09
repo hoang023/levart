@@ -41,7 +41,8 @@ const privateRoutes = [
     {path: "/Supply", component: Supply, layout: AdminLayout},    
     {path: "/NewSupply", component: NewSupply, layout: AdminLayout},   
     {path: "/Account", component: Account, layout: AdminLayout},
-    {path: "/NewAccount", component: NewAccount, layout: AdminLayout},      
+    {path: "/NewAccount", component: NewAccount, layout: AdminLayout},   
+    {path: "/UpdateSupply/:_id", component: NewSupply, layout: AdminLayout }   
 ];
 
 export { publishRoutes, privateRoutes };

@@ -40,6 +40,8 @@ export const fetchPlace = () => axios.get(`${URL}/place`);
 
 export const fetchHotel = () => axios.get(`${URL}/hotel`);
 export const createHotels = (payload) => axios.post(`${URL}/hotel/create-hotel`, payload);
+export const updateHotel = (payload) => axios.patch(`${URL}/hotel//update/${payload._id}`, payload);
+export const deleteHotels = (id) => axios.delete(`${URL}/hotel/delete/${id}`);
 
 export const fetchFoodAndDrink = () => axios.get(`${URL}/foodAndDrink`);
 

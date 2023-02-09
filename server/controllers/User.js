@@ -7,9 +7,9 @@ import jwt from "jsonwebtoken";
 export const getUser = async (req, res) => {
   try {
     //  const user = new UserModel({
-    //   email:"huy123@gmail.com",
+    //   email:"admin",
     //   password:"123456",
-    //   role: "Supplier"
+    //   role: "Admin"
     // })
     // user.save();
 

@@ -21,6 +21,7 @@
     "react-dom": "^18.0.0",
     "react-file-base64": "^1.0.3",
     "react-icons": "^4.3.1",
+    "react-phone-number-input": "^3.2.18",
     "react-redux": "^8.0.0",
     "react-router-dom": "^6.6.1",
     "react-scripts": "^5.0.1",

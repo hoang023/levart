@@ -1,4 +1,5 @@
 import { HotelModel } from "../models/HotelModel.js";
+import { MyTripModel } from "../models/MyTripModel.js";
 
 export const getHotels = async (req, res) => {
   try {

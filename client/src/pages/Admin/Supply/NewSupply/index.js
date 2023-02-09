@@ -3,12 +3,14 @@ import classNames from "classnames/bind";
 import styles from "./NewSupply.module.scss";
 import { useDispatch, useSelector } from "react-redux";
 import { hotelsState$, placesState$, provincesState$ } from "@/redux/selectors";
-import { Navigate } from "react-router-dom";
+import { Navigate, Routes, Router, useParams } from "react-router-dom";
 import { AuthContext } from "@/contexts/AuthContext";
 import { message, Skeleton } from "antd";
 import *as actions from "../../../../redux/actions";
 import InputImage from "@/components/General/InputImage";
-import FileBase64 from 'react-file-base64'
+import PhoneInput from 'react-phone-number-input';
+import 'react-phone-number-input/style.css'
+import vi from 'react-phone-number-input/locale/vi'
 import {
   Form,
   Input,
@@ -17,25 +19,35 @@ import {
   DatePicker,
 } from 'antd';
 import Button from "@/components/General/Button/Button";
+import ImgContent from "@/components/Layout/components/ImgContent";
+import FormItem from "antd/es/form/FormItem";
+import { DefaultLayout } from "@/components/Layout";
+import { GiKetchup } from "react-icons/gi";
 
 
 
 const cx = classNames.bind(styles);
 
 function NewSupply() {
+
+  let { _id } = useParams();
+  console.log(_id, "id")
   const {
     authState: { authLoading, isAuthenticated, user },
   } = useContext(AuthContext);
 
   const dispatch = useDispatch();
   const hotel = useSelector(hotelsState$);
-  console.log("hotelllll", hotel)
+  const hotell = hotel.find(function (Hotel) {
+    return Hotel._id === _id;
+  }, []);
+  console.log("hotelllll", hotell)
   const provinces = useSelector(provincesState$);
   // console.log(provinces)
   const places = useSelector(placesState$);
   // console.log(places)
 
-  const { RangePicker } = DatePicker;
+
   const { TextArea } = Input;
   const [componentDisabled, setComponentDisabled] = useState(true);
   const onFormLayoutChange = ({ disabled }) => {
@@ -46,10 +58,15 @@ function NewSupply() {
   const { Option } = Select;
 
 
-  const handleSubmit = () => {
+  const handleCreate = () => {
     dispatch(actions.createHotels.createHotelsRequest(newHotel));
     message.success("Tạo thành công")
     setNewHotel(hotelData)
+  }
+
+  const handleUpdate = () => {
+    dispatch(actions.updateHotels.updateHotelsRequest(newHotel));
+    setNewHotel(hotelData);
   }
 
   const handleCancel = () => {
@@ -98,6 +115,17 @@ function NewSupply() {
     supplierID: user._id,
     path: "Hotel",
   }
+
+  if (_id) {
+    hotelData = hotell;
+  }
+  const getDefaulValue = () => {
+
+    if (_id) {
+      return [hotell.placeID.provinceID.name, hotell.placeID.name]
+    }
+    else return null
+  }
   const [newHotel, setNewHotel] = useState(hotelData);
 
   let newHotels = hotelData;
@@ -111,11 +139,20 @@ function NewSupply() {
   }, [newHotel])
 
   const handleChangeType = (value) => {
-    let temp = [];
+
+    let temp = [
+      ["hotel", false],
+      ["hostel", false],
+      ["resort", false],
+      ["motel", false]];
     value.forEach(element => {
-      temp.push([element, true])
-      return temp;
+      temp.forEach(temp => {
+        if (element === temp[0]) {
+          temp[1] = true;
+        }
+      })
     });
+    console.log("TEMP: ", temp)
     type = Object.fromEntries(temp)
     type = {
       ...newHotel.type,
@@ -129,13 +166,20 @@ function NewSupply() {
     return type;
   };
   const handleChangeRoomType = (value) => {
-    let temp = [];
+    let temp = [
+      ["oceanView", false],
+      ["NonSmokingRoom", false],
+      ["landmarkView", false],
+      ["suite", false],
+      ["poolView", false]];
     value.forEach(element => {
-      temp.push([element, true])
-      return temp;
+      temp.forEach(temp => {
+        if (element === temp[0]) {
+          temp[1] = true;
+        }
+      })
     });
     roomType = Object.fromEntries(temp)
-    console.log(roomType)
     roomType = {
       ...newHotel.roomType,
       ...roomType
@@ -148,13 +192,22 @@ function NewSupply() {
     return roomType;
   };
   const handleChangeRoomFeatures = (value) => {
-    let temp = [];
+    let temp = [
+      ["airConditioning", false],
+      ["privateBalcony", false],
+      ["bar", false],
+      ["safe", false],
+      ["refrigerator", false],
+      ["flatScreen", false]
+    ];
     value.forEach(element => {
-      temp.push([element, true])
-      return temp;
+      temp.forEach(temp => {
+        if (element === temp[0]) {
+          temp[1] = true;
+        }
+      })
     });
     roomFeatures = Object.fromEntries(temp)
-    console.log(roomFeatures)
     roomFeatures = {
       ...newHotel.roomFeatures,
       ...roomFeatures
@@ -167,13 +220,22 @@ function NewSupply() {
     return roomFeatures;
   };
   const handleChangeProperty = (value) => {
-    let temp = [];
+    let temp = [
+      ["freeParking", false],
+      ["wifi", false],
+      ["pool", false],
+      ["fitnessCenterWithGym", false],
+      ["freeBreakfast", false],
+      ["beach", false]
+    ];
     value.forEach(element => {
-      temp.push([element, true])
-      return temp;
+      temp.forEach(temp => {
+        if (element === temp[0]) {
+          temp[1] = true;
+        }
+      })
     });
     property = Object.fromEntries(temp)
-    console.log(property)
     property = {
       ...newHotel.property,
       ...property
@@ -186,9 +248,69 @@ function NewSupply() {
     return property;
   };
 
+
+  const handleDefault = (type) => {
+    if (_id) {
+      switch (type) {
+        case "type":
+          {
+            let array = []
+            for (const [key, val] of Object.entries(hotell.type)) {
+              if (val) {
+                console.log("key: ", key)
+                array.push(key)
+              }
+            }
+            console.log(array, "array")
+            return array;
+          };
+        case "roomType":
+          {
+            let array = []
+            for (const [key, val] of Object.entries(hotell.roomType)) {
+              if (val) {
+                console.log("key: ", key)
+                array.push(key)
+              }
+            }
+            console.log(array, "array")
+            return array;
+          };
+        case "roomFeatures":
+          {
+            let array = []
+            for (const [key, val] of Object.entries(hotell.roomFeatures)) {
+              if (val) {
+                console.log("key: ", key)
+                array.push(key)
+              }
+            }
+            console.log(array, "array")
+            return array;
+          };
+        case "property":
+          {
+            let array = []
+            for (const [key, val] of Object.entries(hotell.property)) {
+              if (val) {
+                console.log("key: ", key)
+                array.push(key)
+              }
+            }
+            console.log(array, "array")
+            return array;
+          };
+        default:
+          break;
+      }
+
+    }
+    else return [];
+  }
+
   const handleInputState = (name, value) => {
-		setNewHotel((prev) => ({ ...prev, [name]: value }));
-	};
+    setNewHotel((prev) => ({ ...prev, [name]: value }));
+  };
 
   if (authLoading) {
     body = (
@@ -235,18 +357,49 @@ function NewSupply() {
             <Radio value="pear"> Pear </Radio>
           </Radio.Group>
         </Form.Item> */}
+                {_id ? <Form.Item label="Image">
+                  <ImgContent data={newHotel.image} name={newHotel.name}></ImgContent>
+                </Form.Item> : null}
                 <Form.Item label="Name">
-                  <Input onChange={(e) => setNewHotel({ ...newHotel, name: e.target.value })}></Input>
+                  <Input value={newHotel.name} onChange={(e) => setNewHotel({ ...newHotel, name: e.target.value })}></Input>
                 </Form.Item>
-                <Form.Item label="Phone Number">
-                  <Input onChange={(e) => setNewHotel({ ...newHotel, phone: e.target.value })} type="Number" />
+                {/* <Form.Item label="Phone Number">
+                  <Input value={Number(newHotel.phone)} onChange={(e) => setNewHotel({ ...newHotel, phone: e.target.value })} type="Number" />
+                </Form.Item> */}
+                <Form.Item label="Phone Number 2">
+                  <PhoneInput
+                    style={{
+                      borderRadius: "20px",
+                      padding: "8px 9px",
+                      margin: "0px",
+                      fontVariant: "tabularnums",
+                      listStyle: "none",
+                      fontFeatureSettings: "tnum",
+                      position: "relative",
+                      width: "100%",
+                      minWidth: "0px",
+                      color: "rgba(0, 0, 0, 0.85)",
+                      fontsize: "14px",
+                      lineHeight: "1.5715",
+                      backgroundColor: "#fff",
+                      backgroundImage: "none",
+                      border: "1px solid rgb(217, 217, 217)",
+                      transition: "all 0.3s ease 0s"
+                    }}
+                    onlyCountries='vi'
+                    placeholder="Enter phone number"
+                    value={newHotel.phone}
+                    onChange={(e) => {
+                      console.log(e);
+                      setNewHotel({ ...newHotel, phone: e })
+                    }}>
+                  </PhoneInput>
                 </Form.Item>
                 <Form.Item label="Location">
-                  <Input onChange={(e) => setNewHotel({ ...newHotel, location: e.target.value })}></Input>
+                  <Input value={newHotel.location} onChange={(e) => setNewHotel({ ...newHotel, location: e.target.value })}></Input>
                 </Form.Item>
                 <Form.Item label="Province/City">
                   <Cascader
-
                     onChange={(e) => {
                       setNewHotel({ ...newHotel, placeID: e[1] })
                       console.log(e)
@@ -275,6 +428,7 @@ function NewSupply() {
                     //     ],
                     //   },
                     // ]}
+                    defaultValue={getDefaulValue}
 
                     options={provinces.map((province) => {
 
@@ -298,10 +452,10 @@ function NewSupply() {
 
                 </Form.Item>
                 <Form.Item label="Price">
-                  <Input onChange={(e) => setNewHotel({ ...newHotel, price: Number(e.target.value) })} type="number" prefix="VNĐ"></Input>
+                  <Input value={newHotel.price.toString()} onChange={(e) => setNewHotel({ ...newHotel, price: Number(e.target.value) })} type="number" prefix="VNĐ"></Input>
                 </Form.Item>
-                <Form.Item label="TextArea">
-                  <TextArea rows={4} onChange={(e) => setNewHotel({ ...newHotel, description: e.target.value })} />
+                <Form.Item label="Description">
+                  <TextArea value={newHotel.description} rows={4} onChange={(e) => setNewHotel({ ...newHotel, description: e.target.value })} />
                 </Form.Item>
                 <Form.Item label="type" >
                   <Select
@@ -310,7 +464,7 @@ function NewSupply() {
                       width: '100%',
                     }}
                     placeholder="Select one of type"
-                    // defaultValue={['hotel']}
+                    defaultValue={handleDefault("type")}
                     onChange={handleChangeType}
                     optionLabelProp="label"
                   >
@@ -327,6 +481,7 @@ function NewSupply() {
                 </Form.Item>
                 <Form.Item label="Room type" >
                   <Select
+                    defaultValue={handleDefault("roomType")}
                     mode="multiple"
                     style={{
                       width: '100%',
@@ -349,6 +504,7 @@ function NewSupply() {
                 </Form.Item>
                 <Form.Item label="Room Features" >
                   <Select
+                    defaultValue={handleDefault("roomFeatures")}
                     mode="multiple"
                     style={{
                       width: '100%',
@@ -371,12 +527,13 @@ function NewSupply() {
                 </Form.Item>
                 <Form.Item label="Property" >
                   <Select
+                    defaultValue={handleDefault("property")}
+
                     mode="multiple"
                     style={{
                       width: '100%',
                     }}
                     placeholder="select one country"
-                    // defaultValue={['hotel']}
                     onChange={handleChangeProperty}
                     optionLabelProp="label"
                   >
@@ -412,7 +569,6 @@ function NewSupply() {
                     </div>
                   </Upload>
                 </Form.Item> */}
-                {newHotel.image !== "" ? <img className={cx("img-Hotel")} alt="sa" src={newHotel.image}></img> : null}
                 <Form.Item >
                   {/* <FileBase64
                     multiple={false}
@@ -422,17 +578,18 @@ function NewSupply() {
                   >
 
                   </FileBase64> */}
-          <InputImage
-          					name="image"
+                  {_id ? null : <InputImage
+                    name="image"
                     label="Choose Image"
                     handleInputState={handleInputState}
                     type="image"
                     value={newHotel.image}>
-          
-          </InputImage>
+
+                  </InputImage>}
+
                 </Form.Item>
-                <Form.Item style={{ margin: '40px 0px 0px 100px' }} >
-                  <Button primary medium onClick={handleSubmit} to="/Supply">Create</Button>
+                <Form.Item style={{ margin: '40px 0px 0px 0px', }} >
+                  {_id ? <Button primary medium onClick={handleUpdate} to="/Supply">Update</Button> : <Button primary medium onClick={handleCreate} to="/Supply">Create</Button>}
                   <Button style={{ color: '#0DCB78' }} text to="/Supply">Cancel</Button>
                 </Form.Item>
               </Form>
