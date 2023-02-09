@@ -2,6 +2,8 @@ import { takeLatest, call, put, take } from "redux-saga/effects";
 import * as actions from "../actions";
 import * as api from "../../api";
 
+
+
 function* fetchPostsSaga(action) {
   try {
     const posts = yield call(api.fetchPosts);
@@ -162,6 +164,14 @@ function* updateRequestSaga(action) {
     yield put(actions.updateRequests.updateRequestsFailure(error.response.data));
   }
 }
+function* createRequestsSaga(action) {
+  try {
+    const request = yield call(api.createRequests, action.payload)
+    yield put(actions.createRequests.createRequestsSuccess(request.data))
+  } catch (error) {
+    yield put(actions.createRequests.createRequetsFailure(error.response.data));
+  }
+}
 
 
 function* mySaga() {
@@ -190,6 +200,7 @@ function* mySaga() {
 
   yield takeLatest(actions.getRequests.getRequestsRequest, fetchRequestsSaga);
   yield takeLatest(actions.updateRequests.updateRequestsRequest, updateRequestSaga);
+  yield takeLatest(actions.createRequests.createRequestsRequest,createRequestsSaga)
 }
 
 export default mySaga;

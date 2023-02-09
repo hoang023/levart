@@ -44,10 +44,10 @@ function BookingBar({data, path, ...props}) {
                     <div className={cx("booking-location-content")}>
                         <EnvironmentOutlined className={cx("icon")}></EnvironmentOutlined>
                         <select value={name} onChange={e=>setName(e.target.value)} >
-                            {provinces.map(item=>{
+                            {provinces.map((item,index)=>{
                                 return (
                                     <>
-                                       <option >{item.name}</option>
+                                       <option key={index} >{item.name}</option>
                             
                                     </>
                                 )

@@ -15,6 +15,9 @@ export const INIT_STATE = {
   ChooseCollectionModal: {
     isShow: false,
   },
+  BookingModal: {
+    isShow: false,
+  },
   CreateCollectionModal: {
     isShow: false,
   },

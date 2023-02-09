@@ -1,55 +1,78 @@
-import { chooseCollectionModalState$, modalState$ } from "@/redux/selectors";
-import { Modal } from "antd";
+import React, {Fragment, useContext, useEffect, useState} from "react";
 import classNames from "classnames/bind";
-import React, { useState } from "react";
+import styles from "./BookingModal.module.scss";
 import { useDispatch, useSelector } from "react-redux";
 import * as actions from "@/redux/actions";
-import { AiOutlineHeart, AiFillHeart } from "react-icons/ai";
-import { BsPlusSquare } from "react-icons/bs";
+import { AuthContext } from "@/contexts/AuthContext";
+import { bookingModalState$, modalState$, requestsState$, hotelsState$, profilesState$ } from "@/redux/selectors";
+import {message, Modal, TimePicker} from "antd";
+import {
+  Form,
+  Input,
+  Select,
+  Cascader,
+  DatePicker,
+} from 'antd';
+import Button from "@/components/General/Button/Button";
+import { useParams } from "react-router-dom";
 
-import styles from "./MyTripModal.module.scss";
-import CollectionList from "../../List/CollectionList";
+const cx = classNames.bind(styles)
+function BookingModal ({ dataa, data1, onChangeCheckIn, onChangeCheckOut}) {
+  const {
+    authState: { authLoading, isAuthenticated, profile },
+  } = useContext(AuthContext);
+ const {isShow, data} = useSelector(bookingModalState$)
 
-const cx = classNames.bind(styles);
+ 
+ const dispatch = useDispatch()
+ const requests = useSelector(requestsState$)
+ const hotels = useSelector(hotelsState$)
+ const profiles = useSelector(profilesState$)
 
-function BookingModal({ display, name, ...props }) {
-  const { isShow, data } = useSelector(chooseCollectionModalState$);
-  // console.log("ahjdasjkdhakjsd", data)
-  const dispatch = useDispatch();
 
+ 
+  const [newBooking, setNewBooking] = useState(dataa)
+ 
+ 
+ const onChangeNotice = (e) => {
+  setNewBooking({
+    ...newBooking,
+    noticeTitle: e.target.value
+  })
+ }
 
-  const handleCancel = React.useCallback(() => {
-    dispatch(actions.hideChooseCollectionModal());
-  }, [dispatch]);
+ 
+  
+  
+console.log(newBooking)
+ const handleBooking=() =>{
+  dispatch(actions.createRequests.createRequestsRequest(newBooking))
+  message.success("Tạo thành công")
+ }
+ 
+ const handleCancel = React.useCallback(() => {
+  dispatch(actions.hideBookingModal())
+}, [dispatch]);
 
-  const openCreateCollectionModal = React.useCallback(() => {
-    dispatch(actions.showCreateCollectionModal(data));
-    handleCancel();
-  }, [dispatch, data]);
-
-  const title = (
-    <span className={cx("icon-title")}>
-      <AiOutlineHeart className={cx("btn-icon")} />
-      <p>Booking Form</p>
-    </span>
-  );
-
-  const footer = (
-    <span className={cx("icon-footer")} onClick={openCreateCollectionModal}>
-      <BsPlusSquare className={cx("btn-icon")} />
-      <p>Create a Trip</p>
-    </span>
-  );
+const title = (
+  <span className={cx("title")}>
+    <p>Booking Room</p>
+  </span>
+);
+const footer = (
+ <Button medium primary onClick={handleBooking}>Booking</Button>
+ 
+)
 
   return (
-    <Modal
-      {...props}
-      title={title}
-      open={isShow}
-      onCancel={handleCancel}
-      footer={footer}
-      width="500px"
-      bodyStyle={{
+   <Modal
+   title={title}
+    open={isShow}
+    onCancel={handleCancel}
+    footer={footer}
+    width="1000px"
+    backgroundColor= "#000"
+    bodyStyle={{
         height: "400px",
         borderTop: "1px solid #ccc",
         overflow: "hidden",
@@ -58,10 +81,38 @@ function BookingModal({ display, name, ...props }) {
       }}
     >
       <div className={cx("wrapper")}>
-        <CollectionList data={data} />
+        <>
+        <Form
+         style={{ padding: '20px 20px' }}
+         labelCol={{
+          span: 4,
+        }}
+        wrapperCol={{
+          span: 14,
+        }}
+        >
+          <Form.Item label="First Name">
+            <Input value={data1.firstName}   ></Input>
+          </Form.Item>
+          <Form.Item label="Last Name">
+            <Input  value={data1.lastName} ></Input>
+          </Form.Item>
+          <Form.Item label="Hotel's Name">
+            <Input value={data1.name}></Input>
+          </Form.Item>
+          <Form.Item label="Check In">
+            <DatePicker format={"DD/MM/YYYY"} value={dataa.checkIn} onChange={onChangeCheckIn} ></DatePicker>
+          </Form.Item>
+          <Form.Item label="Check Out">
+            <DatePicker format={"DD/MM/YYYY"} value={dataa.checkOut} onChange={onChangeCheckOut} ></DatePicker>
+          </Form.Item>
+          <Form.Item label="Notice">
+            <Input value={newBooking.noticeTitle} onChange={onChangeNotice}></Input>
+          </Form.Item>
+        </Form>
+        </>
       </div>
-    </Modal>
-  );
+   </Modal>
+  )
 }
-
-export default BookingModal;
+export default BookingModal

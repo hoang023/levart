@@ -16,6 +16,9 @@ export const hideChooseCollectionModal = createAction('HIDE_CHOOSE_COLLECTION_MO
 export const showCreateCollectionModal = createAction('SHOW_CREATE_COLLECTION_MODAL')
 export const hideCreateCollectionModal = createAction('HIDE_CREATE_COLLECTION_MODAL')
 
+export const showBookingModal = createAction('SHOW_CREATE_BOOKING_MODAL')
+export const hideBookingModal = createAction('HIDE_CREATE_BOOKING_MODAL')
+
 export const getPosts = createActions({
   getPostsRequest: undefined,
   getPostsSuccess: (payload) => payload,
@@ -109,5 +112,11 @@ export const updateRequests = createActions({
   updateRequestsSuccess: (payload) => payload,
   updateRequestsFailure: (err) => err,
 });
+export const createRequests = createActions({
+  createRequestsRequest: (payload)=>payload,
+  createRequestsSuccess: (payload)=>payload,
+  createRequetsFailure: (err)=>err,
+})
+
 
 

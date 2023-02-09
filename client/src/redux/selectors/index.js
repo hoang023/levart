@@ -3,6 +3,8 @@ export const postsState$ = (state) => state.posts.data;
 //Modal
 export const modalState$ =(state) => state.Modal;
 
+export const bookingModalState$ = (state) => state.BookingModal;
+
 export const hotelModalState$ =(state) => state.HotelModal;
 
 export const chooseCollectionModalState$ =(state) => state.ChooseCollectionModal;
