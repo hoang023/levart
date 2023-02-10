@@ -13,7 +13,7 @@ import { useDispatch, useSelector } from "react-redux";
 import styles from "./TopContent.module.scss";
 import IconButton from "@/components/General/IconButton";
 import { AuthContext } from "@/contexts/AuthContext";
-import { useParams } from "react-router-dom";
+import { Navigate, useParams } from "react-router-dom";
 import BookingModal from "@/components/General/Modal/BookingModal";
 import moment from "moment";
 import dayjs from 'dayjs'
@@ -30,6 +30,7 @@ function TopContent({ data, display }) {
     return hotel.name === name;
   })
 
+  console.log("qwerty", data)
 
   const [searchData, setSearchData] = useState({
     checkIn: moment(),
@@ -40,11 +41,11 @@ function TopContent({ data, display }) {
     setSearchData(value);
   };
   const handleTest = (e) => {
-    setSearchData({...searchData, checkIn : e})
+    setSearchData({ ...searchData, checkIn: e })
   }
 
   const handleTest1 = (e) => {
-    setSearchData({...searchData, checkOut : e})
+    setSearchData({ ...searchData, checkOut: e })
   }
 
   // const onChangeCheckIn = (e)=>{
@@ -78,7 +79,7 @@ function TopContent({ data, display }) {
   //   }
   // };
 
-  let holdingSearchData 
+  let holdingSearchData
 
   const dispatch = useDispatch()
   const openBookingModal = React.useCallback(() => {
@@ -90,7 +91,7 @@ function TopContent({ data, display }) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
     holdingSearchData = searchData;
     setSearchData(searchData)
-    
+
   }, [searchData])
 
   let title;
@@ -168,15 +169,18 @@ function TopContent({ data, display }) {
 
               {display[1] === "Hotel" ?
                 (
-                  <Button medium primary onClick={openBookingModal}  >
-                    <span>BOOK NOW</span>
-                  </Button>
+                  <>
+                    <Button medium primary onClick={isAuthenticated && profile ? openBookingModal : <Navigate to="/SignIn"></Navigate>}  >
+                      <span>BOOK NOW</span>
+                    </Button>
+                    <BookingModal handleTest={handleTest} handleTest1={handleTest1} dataa={searchData}  ></BookingModal></>
                 )
                 :
                 null
+
               }
-             <BookingModal handleTest={handleTest} handleTest1 = {handleTest1} dataa={searchData}  ></BookingModal>
-              
+
+
             </div>
             <div className={cx("bottom-content")}>
               <div className={cx("icon-content")}>

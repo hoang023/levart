@@ -16,6 +16,7 @@ import { DownOutlined, SearchOutlined } from "@ant-design/icons";
 import { EyeInvisibleOutlined, EyeTwoTone } from '@ant-design/icons';
 import { Button } from 'antd';
 import TextArea from "antd/lib/input/TextArea";
+import *as actions from "../../../redux/actions";
 
 const cx = classNames.bind(styles);
 
@@ -24,7 +25,7 @@ function Account(check) {
         logoutUser,
         authState: { authLoading, isAuthenticated, user, profiles },
     } = useContext(AuthContext);
-
+    const dispatch = useDispatch();
     let { _id } = useParams()
     const requests = useSelector(requestsState$);
 
@@ -34,10 +35,10 @@ function Account(check) {
     const [hidePassword, setHidePassword] = useState(true)
     // const [userDataa, setUserDataa] = useState('')
     // console.log("dha", users)s
-    useEffect(() =>{ 
+    useEffect(() => {
 
     }, users)
-    
+
     const userData = users.map((user, index) => {
         let userProfile = profile.filter((profile) => profile.UserID._id === user._id)
         profile.filter((profile) => profile.UserID._id === user._id).map((profile) => console.log(profile.firstName))
@@ -55,6 +56,11 @@ function Account(check) {
     console.log("userData", userData);
     // console.log(requestData)
 
+    const handleDelete = (value) => {
+        const user = users.find(function (user) {
+            return user.email === value;
+        })
+    }
     const column2 = [
         {
             title: "Tên tài khoản",
@@ -108,13 +114,13 @@ function Account(check) {
                 <>{text}</>
               )}
                  */}
-      <Input.Password
-        placeholder="input password"
-        value = {text}
-        onFocus
-        iconRender={(visible) => (visible ? <EyeTwoTone /> : <EyeInvisibleOutlined />)}
-      />
-            </Fragment>
+                    <Input.Password
+                        placeholder="input password"
+                        value={text}
+                        onFocus
+                        iconRender={(visible) => (visible ? <EyeTwoTone /> : <EyeInvisibleOutlined />)}
+                    />
+                </Fragment>
 
 
 
@@ -161,7 +167,22 @@ function Account(check) {
                 return record.role.toLowerCase().includes(value.toLowerCase());
             },
         },
-
+        {
+            title: 'Action',
+            key: 'action',
+            render: (_, record) => (
+                <Space size="middle">
+                    <Buttonn style={{ color: "#0DCB78" }} text  >
+                        Update {record.name}</Buttonn >
+                    <Buttonn style={{ color: '#FF0000' }} text onClick={handleDelete((record) => {
+                        const user = users.find(function (user) {
+                            return user.email === record.email;
+                        })
+                        console.log("lonma",user)
+                    })}>Delete</Buttonn>
+                </Space>
+            ),
+        },
     ];
     const columns = [
         {

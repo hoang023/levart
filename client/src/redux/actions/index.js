@@ -46,7 +46,11 @@ export const updateUsers = createActions({
   updateUsersSuccess: (payload) => payload,
   updateUsersFailure: (err) => err,
 });
-
+export const deleteUsers = createActions({
+  deleteUsersRequest: (payload) => payload,
+  deleteUsersSuccess: (payload) => payload,
+  deleteUsersFailure: (err) => err,
+});
 export const getProvinces = createActions({
   getProvincesRequest: undefined,
   getProvincesSuccess: (payload) => payload,

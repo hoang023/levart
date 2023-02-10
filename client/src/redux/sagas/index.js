@@ -107,7 +107,14 @@ function* createUserSaga(action) {
 //     yield put(actions.updateUsers.updateUsersFailure(error.response.data));
 //   }
 // }
-
+function* deleteUserSaga(action) {
+  try {
+    const Users = yield call(api.deleteUsers, action.payload);
+    yield put(actions.deleteUsers.deleteUsersSuccess(Users.data._id));
+  } catch (error) {
+    yield put(actions.deleteUsers.deleteUsersFailure(error.response.data));
+  }
+}
 function* fetchFoodAndDrinkSaga(action) {
   try {
     const foodAndDrink = yield call(api.fetchFoodAndDrink);
@@ -203,6 +210,7 @@ function* mySaga() {
   yield takeLatest(actions.getUsers.getUsersRequest, fetchUserSaga);
   yield takeLatest(actions.getUsers.getUsersRequest, createUserSaga)
   // yield takeLatest(actions.updateUsers.updateUsersRequest, updateUserSaga)
+  yield takeLatest(actions.deleteUsers.deleteUsersRequest, deleteUserSaga);
 
   yield takeLatest(actions.getHotels.getHotelsRequest, fetchHotelSaga);
   yield takeLatest(actions.createHotels.createHotelsRequest, createHotelSaga);

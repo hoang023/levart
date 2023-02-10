@@ -39,6 +39,18 @@ function NewAccount() {
     }
     try {
       const registerData = await registerUser(registerForm, profileForm);
+      setRegisterForm({
+        email: "",
+        password: "",
+        confirmPassword: "",
+        role: "Supplier"
+      })
+      setProfileForm({
+        firstName: "",
+        lastName: "",
+        dateOfBirth: moment(),
+        gender: "",
+      })
       if (registerData.success === false) {
         messageError(registerData.message);
       }

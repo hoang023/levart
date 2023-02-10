@@ -33,6 +33,7 @@ export const fetchProfile = () => axios.get(`${URL}/profile`);
 
 export const fetchUser = () => axios.get(`${URL}/user`);
 export const createUsers = (payload) => axios.post(`${URL}/user/register`, payload);
+export const deleteUsers = (id) => axios.delete(`${URL}/user/delete/${id}`);
 
 export const fetchProvince = () => axios.get(`${URL}/province`);
 

@@ -34,18 +34,20 @@ function BookingModal ({ dataa, data1, handleTest , handleTest1}) {
   })
 let bookData = {};
 
-if(isAuthenticated) {
-  bookData = {
-    ProfileID: profile._id,
-    HotelID: hotel._id,
-    checkIn: dataa.checkIn,
-    checkOut: dataa.checkOut,
-    noticeTitle: "",
+const [newBooking, setNewBooking] = useState(bookData)
+  
+useEffect(()=>{
+  if(isAuthenticated && profile && hotel) {
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    bookData = {
+      ProfileID: profile._id,
+      HotelID: hotel._id,
+      checkIn: dataa.checkIn,
+      checkOut: dataa.checkOut,
+      noticeTitle: "",
+    }
   }
-}
-  
-  const [newBooking, setNewBooking] = useState(bookData)
-  
+},[])
   useEffect( () => {
     setNewBooking({...newBooking, checkIn: dataa.checkIn, checkOut: dataa.checkOut})
   }, [dataa])
@@ -91,7 +93,7 @@ const footer = (
     >
       <div className={cx("wrapper")}>
         <>
-        {bookData.ProfileID  ? <Form
+        {profile._id  ? <Form
          style={{ padding: '20px 20px' }}
          labelCol={{
           span: 4,

@@ -14,7 +14,7 @@ import {
     PieChartOutlined,
     TeamOutlined,
     UserOutlined,
-    AppstoreAddOutlined 
+    AppstoreAddOutlined
 } from '@ant-design/icons';
 import { Breadcrumb, Layout, Menu } from 'antd';
 import { Link } from "react-router-dom";
@@ -52,21 +52,21 @@ function AdminLayout({ children, backgroundColor = false, childrenOutSide }) {
             to,
         };
     }
-    
-    const items = [
-        getItem('Dash board', '1',<Link to="/AdminDashBoard"><PieChartOutlined /></Link>),
-        getItem('Request', '2', <Link to="/AdminBookingDetail"><DesktopOutlined /></Link>),
-    
-        ( user.role === "Admin"? getItem('User', 'sub1+',<Link to="/Account"><UserOutlined /></Link> ) : null),
-        // getItem('Team', 'sub2', <TeamOutlined />, [getItem('Team 1', '6'), getItem('Team 2', '8')]),
-        getItem('Service', '9',  <Link to="/Supply"><AppstoreAddOutlined /></Link>),
-    ];
+
+    let items = [];
     const classes = cx("wrapper", {
         backgroundColor,
     });
 
     if (isAuthenticated) {
         dispatch(actions.getMyTrips.getMyTripsRequest(user._id));
+        items = [getItem('Dash board', '1', <Link to="/AdminDashBoard"><PieChartOutlined /></Link>),
+        getItem('Request', '2', <Link to="/AdminBookingDetail"><DesktopOutlined /></Link>),
+
+        (user.role === "Admin" ? getItem('User', 'sub1+', <Link to="/Account"><UserOutlined /></Link>) : null),
+        // getItem('Team', 'sub2', <TeamOutlined />, [getItem('Team 1', '6'), getItem('Team 2', '8')]),
+        getItem('Service', '9', <Link to="/Supply"><AppstoreAddOutlined /></Link>),
+        ]
     }
     const [collapsed, setCollapsed] = useState(false);
     return (
@@ -86,7 +86,7 @@ function AdminLayout({ children, backgroundColor = false, childrenOutSide }) {
                         defaultSelectedKeys={['1']} mode="inline" items={items} />
                 </Sider>
             </div>
-            <div className={cx("outSide")} > 
+            <div className={cx("outSide")} >
                 <Content
                     style={{
                         margin: '0 16px',

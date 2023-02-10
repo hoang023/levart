@@ -1,5 +1,5 @@
 import { INIT_STATE } from "../../constant";
-import {createUsers, updateUsers, getUsers, getType } from "../actions";
+import {createUsers, updateUsers, getUsers, getType, deleteUsers } from "../actions";
 
 export default function UserReducer(state = INIT_STATE.User, action) {
     switch (action.type) {
@@ -48,6 +48,22 @@ export default function UserReducer(state = INIT_STATE.User, action) {
                 isLoading: true,
                 data: [...state.data],
             };
+            case getType(deleteUsers.deleteUsersSuccess):
+          // messageSuccess("Xóa thành công");
+          return {
+            ...state,
+            data: state.data.filter(
+              (Users) => Users._id !== action.payload
+            ),
+          };
+        case getType(deleteUsers.deleteUsersFailure):
+          
+          // messageError(action.payload);
+          return {
+            ...state,
+            isLoading: true,
+            data: [...state.data],
+          };
         default:
             return state;
     }

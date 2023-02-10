@@ -79,6 +79,8 @@ function InnerLayout({ children }) {
     }
   }
 
+  console.log('vcbvz,dhvbjhsbsdhjv',data)
+
   return (
     <DefaultLayout
       backgroundColor={headerURL[1] === "Province" || headerURL[1] === "Place"  ? false : true}
